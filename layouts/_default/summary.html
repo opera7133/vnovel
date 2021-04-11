@@ -1,6 +1,10 @@
 <article class="p-6 dark:text-white lg:flex">
     <a href="{{ .Permalink }}" aria-label="Read">
+        {{ if .Params.image }}
+        <img class="rounded mx-auto w-auto h-32 lg:mx-0 mb-5 lg:mb-0" src="{{ .Params.image | relURL }}" alt="thumbnail" />
+        {{ else }}
         <img class="rounded mx-auto w-auto h-32 lg:mx-0 mb-5 lg:mb-0" src="{{ "/img/novel.png" | relURL }}" alt="thumbnail" />
+        {{ end }}
     </a>
     <div class="lg:ml-8">
         <a href="{{ .Permalink }}">
