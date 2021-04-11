@@ -24,6 +24,18 @@ paginator_pages = "5"
     name = "Sample"
     icon = "https://picsum.photos/150/150"
 
+  [params.homepage_meta_tags]
+    meta_description = "Theme for the novel. That's it."
+    meta_og_title = "VNovel"
+    meta_og_type = "website"
+    meta_og_url = "https://vnovel.pages.dev"
+    meta_og_image = "https://vnovel.pages.dev/img/thumbnail.png"
+    meta_og_description = "Theme for the novel. That's it."
+    meta_twitter_card = "summary_large_image"
+    meta_twitter_site = "@scgame_m"
+    meta_twitter_creator = "@scgame_m"
+
+
 [menu]
 
   [[menu.main]]
