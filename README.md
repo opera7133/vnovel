@@ -1,5 +1,7 @@
 # VNovel
 
+![](https://raw.githubusercontent.com/opera7133/vnovel/main/images/screenshot.png)
+
 Theme for the novel. That's it.
 
 The demo can be seen here: https://vnovel.pages.dev
