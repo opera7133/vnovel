@@ -14,3 +14,4 @@
 {{- $styles := $styles| minify | fingerprint | resources.PostProcess -}}
 <link rel="stylesheet" href="{{ $styles.Permalink }}">
 {{ end -}}
+<link href="{{ "/css/style.min.css" | relURL }}" rel="stylesheet" type="text/css">
