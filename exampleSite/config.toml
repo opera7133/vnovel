@@ -18,7 +18,7 @@ enableRobotsTXT = true
 
 [params]
 # The number of articles to be displayed on a single page.
-paginator_pages = "5"
+paginator_pages = "6"
 
   [params.user]
     name = "Sample"
