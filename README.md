@@ -11,7 +11,7 @@ The demo can be seen here: https://vnovel.pages.dev
 
 ## Features
 * Responsive
-* Tags support
+* Support tags
 * Darkmode
 * Google Analytics
 * Yandex Metrica
