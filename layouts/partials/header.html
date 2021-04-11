@@ -37,6 +37,7 @@
                     {{ .Name }}
                 </a>
                 {{ end }}
+                <button onclick="toggleDarkMode()" class="focus:outline-none mr-5"><i class="icon-moon" id="icon"></i></button>
             </div>
         </div>
     </nav>
@@ -54,4 +55,18 @@
         });
     }
     toggleNav();
+    function toggleDarkMode() {
+      var icon = document.getElementById("icon");
+      if (document.documentElement.classList.contains('dark')) {
+        icon.classList.remove("icon-sun");
+        icon.classList.add("icon-moon");
+          document.documentElement.classList.remove('dark')
+          localStorage.theme = 'light'
+      } else {
+          icon.classList.remove("icon-moon");
+          icon.classList.add("icon-sun");
+        document.documentElement.classList.add('dark')
+        localStorage.theme = 'dark'
+      }
+    }
 </script>
