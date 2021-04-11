@@ -1,0 +1,70 @@
+{{ define "main" }}
+<div class="flex">
+    <div class="w-full lg:w-3/4 px-2 dark:text-white">
+        <div class="bg-white dark:bg-gray-800 lg:flex p-7 rounded-t-xl">
+            <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ "/img/novel.png" | relURL }}" alt="thumbnail"/>
+            <div>
+                <h1 class="title text-3xl my-3">{{ .Title }}</h1>
+                <p class="mb-3 text-sm">{{ .Content | countwords }} {{ i18n "words" }}（{{ if eq .Site.Language.Lang "ja" }}読了目安: {{ end }}{{ math.Round (div (countwords .Content)
+                    220.0) }}{{ i18n "minutes" }}）
+                </p>
+                <p>{{ .Description }}</p>
+                {{ with .Params.tags }}
+                <div id="tags">
+                    {{ range . }}
+                    <span
+                        class="inline-flex my-2 mr-2 leading-4 mb-2 content-center justify-center h-8 text-blue-500"><a
+                            href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a></span>
+                    {{ end }}
+                </div>
+                {{ end }}
+                <h4 id="date" class="text-sm">{{ .Date.Format "2006/1/2 15:04" }}</h4>
+            </div>
+        </div>
+        <div class="bg-white dark:bg-gray-900 border-t border-b pt-14">
+            <div class="mx-auto max-w-2xl">
+                <div class="prose lg:prose-xl dark:prose-dark text-lg py-3 px-5 mb-3">
+                    {{ .Content }}
+                </div>
+            </div>
+        </div>
+        <div class="bg-white dark:bg-gray-800 p-7">
+            <div class="mx-auto max-w-2xl">
+                {{ template "_internal/disqus.html" . }}
+            </div>
+        </div>
+    </div>
+    <div class="mt-8 ml-5 lg:w-1/4 lg:block hidden">
+        <div class="p-4 bg-white dark:bg-gray-800 dark:text-white rounded-xl lg:flex">
+            <div>
+                <img src="{{ .Site.Params.user.icon }}" class="w-11 rounded-full" />
+            </div>
+            <p class="mt-2 ml-2">{{ .Site.Params.user.name }}</p>
+        </div>
+        <div class="mt-7">
+            {{ $filteredPosts := where .Site.RegularPages "Type" "in" site.Params.mainSections }}
+            {{ $relatedPosts := shuffle $filteredPosts | first 5 }}
+            {{- if $relatedPosts }}
+            <div class="rounded-xl bg-white dark:bg-gray-800 panel mb-3 pb-5">
+                <p class="text-xl text-center text-gray-700 dark:text-white py-5">{{ i18n "posts" }}</p>
+                <div class="mx-6">
+                    {{ range $relatedPosts }}
+                    <a href="{{ .RelPermalink }}" class="">
+                        <div class="w-full block mt-3 bg-white dark:bg-gray-800 dark:hover:bg-gray-900 hover:bg-gray-100 duration-200">
+                            <div class="px-2">
+                                <div class="text-gray-900 dark:text-gray-100 font-bold text-xl">{{.Title}}</div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center pb-1">
+                                    {{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content)
+                                        220.0) }}{{ i18n "minutes" }}
+                                </p>
+                            </div>
+                        </div>
+                        {{- end }}
+                    </a>
+                    {{- end }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ end }}

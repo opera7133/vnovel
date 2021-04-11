@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang='{{ .Site.LanguageCode }}'>
+    <head>
+        {{- partial "head.html" . -}}
+        {{ block "meta_tags" . }}{{end}}
+    </head>
+    
+    <body class="bg-gray-100 flex flex-col min-h-screen dark:bg-black">
+        {{- partial "header.html" . -}}
+        <div class="container mx-auto max-w-7xl my-4 flex-grow" id="content">
+            {{- block "main" . }}{{- end }}
+        </div>
+        {{- partial "footer.html" . -}}
+    </body>
+</html>

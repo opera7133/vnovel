@@ -1,0 +1,47 @@
+baseURL = "https://vnovel.pages.dev"
+title = "VNovel"
+author = "wamo"
+languageCode = "en"
+DefaultContentLanguage = "en"
+enableInlineShortcodes = true
+theme = "vnovel"
+enableRobotsTXT = true
+
+# Please enable this feature if the site is available in Japanese, Chinese or Korean.
+#hasCJKLanguage = true
+
+# If you're using Google Analytics, you can enable this feature.
+#googleAnalytics = "G-1234567890"
+
+# Disqus Comment System
+#disqusShortname = ""
+
+[params]
+# The number of articles to be displayed on a single page.
+paginator_pages = "5"
+
+  [params.user]
+    name = "Sample"
+    icon = "https://picsum.photos/150/150"
+
+[menu]
+
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 1
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 2
+
+[build]
+  writeStats = true
+
+# If you're using Yandex.Metrica, you can enable this feature.
+#[params.analytics.yandexmetrica]
+#    enabled = true
+#    tagNumber = ''

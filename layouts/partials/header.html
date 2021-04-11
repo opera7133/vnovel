@@ -1,0 +1,57 @@
+<header class="bg-white dark:bg-gray-900 dark:text-white">
+    <div id="overlay">
+        <ul class="text-center list-none text-white text-3xl">
+            {{ range .Site.Menus.main }}
+            <li class="p-2">
+                <a href="{{ .URL }}">
+                    <span>{{ .Name }}</span>
+                </a>
+            </li>
+            {{ end }}
+            {{ range .Site.Menus.ex }}
+            <li class="p-2">
+                <a href="{{ .URL }}">
+                    <span>{{ .Name }}</span>
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+    </div>
+    <nav class="flex items-center justify-between flex-wrap p-4">
+        <div class="flex items-center flex-shrink-0 text-2xl mx-6">
+            <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+        </div>
+        <div class="pr-4 block lg:hidden">
+            <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded type-1">
+                <span class="top bg-black dark:bg-white"></span>
+                <span class="middle bg-black dark:bg-white"></span>
+                <span class="bottom bg-black dark:bg-white"></span>
+            </div>
+        </div>
+        <div class="hidden w-full ml-6 block flex-grow lg:flex lg:flex-row lg:items-center lg:w-auto" id="mobileMenu">
+            <div class="text-lg lg:flex-grow">
+            </div>
+            <div class="text-lg mt-3 lg:m-0">
+                {{ range .Site.Menus.main }}
+                <a href="{{ .URL }}" class="block mt-4 lg:inline-block lg:mt-0 hover:text-gray-500 duration-200 mr-8">
+                    {{ .Name }}
+                </a>
+                {{ end }}
+            </div>
+        </div>
+    </nav>
+</header>
+<script>
+    function toggleNav() {
+        var hamburger = document.getElementById("hamburgerbtn");
+        var overlay = document.getElementById("overlay");
+        var body = document.body;
+
+        hamburger.addEventListener("click", function () {
+            overlay.classList.toggle("open");
+            hamburger.classList.toggle("is-open");
+            body.classList.toggle("scroll-lock");
+        });
+    }
+    toggleNav();
+</script>

@@ -1,0 +1,12 @@
+name = "VNovel"
+license = "MIT"
+licenselink = "https://github.com/opera7133/vnovel/blob/master/LICENSE"
+description = "Theme for the novel. That's it."
+homepage = "https://github.com/opera7133/vnovel/"
+tags = ["minimal", "light", "dark", "simple", "clean", "tailwindcss", "personal", "responsive", "novel"]
+features = ["simple"]
+min_version = "0.66.0"
+
+[author]
+  name = "wamo"
+  homepage = "https://wmsci.com"

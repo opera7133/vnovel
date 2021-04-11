@@ -1,0 +1,23 @@
+<article class="p-6 dark:text-white flex">
+    <a href="{{ .Permalink }}">
+        <img class="rounded mx-auto w-auto h-32 lg:mx-0" src="{{ "/img/novel.png" | relURL }}" />
+    </a>
+    <div class="ml-8">
+        <a href="{{ .Permalink }}">
+            <h1 class="text-xl mb-2">{{ .Title }}</h1>
+        </a>
+        <p class="mb-1 text-sm">{{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content)
+            220.0) }}{{ i18n "minutes" }}
+        </p>
+        {{ with .Params.tags }}
+            <div id="tags">
+                {{ range . }}
+                <span
+                    class="inline-flex my-2 mr-2 leading-4 mb-2 content-center justify-center h-8 text-blue-500"><a
+                        href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a></span>
+                {{ end }}
+            </div>
+        {{ end }}
+        <p>{{ substr .Description 0 30 | plainify }}...</p>
+    </div>
+</article>
