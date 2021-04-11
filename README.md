@@ -28,8 +28,8 @@ $ npm install -g autoprefixer
 Inside the folder of your Hugo site run:
 
 ```bash
-$ git submodule add https://github.com/opera7133/noknok.git themes/noknok
-$ cd themes/noknok
+$ git submodule add https://github.com/opera7133/vnovel.git themes/vnovel
+$ cd themes/vnovel
 $ npm install
 ```
 
