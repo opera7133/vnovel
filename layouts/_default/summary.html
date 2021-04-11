@@ -1,6 +1,6 @@
 <article class="p-6 dark:text-white flex">
-    <a href="{{ .Permalink }}">
-        <img class="rounded mx-auto w-auto h-32 lg:mx-0" src="{{ "/img/novel.png" | relURL }}" />
+    <a href="{{ .Permalink }}" aria-label="Read">
+        <img class="rounded mx-auto w-auto h-32 lg:mx-0" src="{{ "/img/novel.png" | relURL }}" alt="thumbnail" />
     </a>
     <div class="ml-8">
         <a href="{{ .Permalink }}">
@@ -13,7 +13,7 @@
             <div id="tags">
                 {{ range . }}
                 <span
-                    class="inline-flex my-2 mr-2 leading-4 mb-2 content-center justify-center h-8 text-blue-500"><a
+                    class="inline-flex my-2 mr-2 leading-4 mb-2 content-center justify-center h-8 text-blue-600"><a
                         href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a></span>
                 {{ end }}
             </div>
