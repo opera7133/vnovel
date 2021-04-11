@@ -13,6 +13,7 @@ The demo can be seen here: https://vnovel.pages.dev
 * Google Analytics
 * Yandex Metrica
 * RSS Feeds
+* [Lighthouse 100/100](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https%3A%2F%2Fvnovel.pages.dev%2F)
 
 ## Prerequisites
 
