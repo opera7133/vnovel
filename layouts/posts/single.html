@@ -33,7 +33,7 @@
 {{ define "main" }}
 <div class="flex">
     <div class="w-full lg:w-3/4 px-2 dark:text-white">
-        <div class="bg-white dark:bg-gray-800 lg:flex p-7 rounded-t-xl">
+        <div class="bg-white dark:bg-warmgray-700 lg:flex p-7 rounded-t-xl">
             {{ if .Params.image }}
             <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
             {{ else }}
@@ -57,43 +57,39 @@
                 <h4 id="date" class="text-sm">{{ .Date.Format "2006/1/2 15:04" }}</h4>
             </div>
         </div>
-        <div class="bg-white dark:bg-gray-900 border-t border-b pt-14">
+        <div class="bg-white dark:bg-warmgray-800 pt-14 border-t border-b dark:border-warmgray-800">
             <div class="mx-auto max-w-2xl">
-                <div class="prose lg:prose-xl dark:prose-dark text-lg py-3 px-5 mb-3">
+                <div class="prose lg:prose-xl dark:prose-dark text-lg py-3 px-5">
                     {{ .Content }}
                 </div>
             </div>
         </div>
-        <div class="bg-white dark:bg-gray-800 p-7">
+        <div class="bg-white dark:bg-warmgray-700 p-7 rounded-b-xl">
             <div class="mx-auto max-w-2xl">
                 {{ template "_internal/disqus.html" . }}
             </div>
         </div>
     </div>
-    <div class="mt-8 ml-5 lg:w-1/4 lg:block hidden">
-        <div class="p-4 bg-white dark:bg-gray-800 dark:text-white rounded-xl lg:flex">
+    <div class="mt-8 ml-5 lg:w-1/4 font-bold lg:block hidden">
+        {{ if .Params.author }}
+        <div class="px-4 dark:text-white rounded-xl lg:flex">
             <div>
                 <img src="{{ .Site.Params.user.icon }}" class="w-11 rounded-full" />
             </div>
-            <p class="mt-2 ml-2">{{ .Site.Params.user.name }}</p>
+            <p class="mt-2 ml-2">{{ .Params.author }}</p>
         </div>
+        {{ end }}
         <div class="mt-7">
             {{ $filteredPosts := where .Site.RegularPages "Type" "in" site.Params.mainSections }}
             {{ $relatedPosts := shuffle $filteredPosts | first 5 }}
             {{- if $relatedPosts }}
-            <div class="rounded-xl bg-white dark:bg-gray-800 panel mb-3 pb-5">
-                <p class="text-xl text-center text-gray-700 dark:text-white py-5">{{ i18n "posts" }}</p>
-                <div class="mx-6">
+            <div class="rounded-xl panel mb-3 pb-5">
+                <p class="mx-4 text-base text-gray-700 dark:text-white pt-5">{{ i18n "posts" }}</p>
+                <div class="mx-4">
                     {{ range $relatedPosts }}
                     <a href="{{ .RelPermalink }}" class="">
-                        <div class="w-full block mt-3 bg-white dark:bg-gray-800 dark:hover:bg-gray-900 hover:bg-gray-100 duration-200">
-                            <div class="px-2">
-                                <div class="text-gray-900 dark:text-gray-100 font-bold text-xl">{{.Title}}</div>
-                                <p class="text-sm text-gray-600 dark:text-gray-400 flex items-center pb-1">
-                                    {{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content)
-                                        220.0) }}{{ i18n "minutes" }}
-                                </p>
-                            </div>
+                        <div class="px-2 py-1 rounded w-full block dark:hover:bg-warmgray-800 hover:bg-gray-200 duration-200">
+                            <div class="text-gray-900 dark:text-gray-100 text-base">{{.Title}}</div>
                         </div>
                         {{- end }}
                     </a>

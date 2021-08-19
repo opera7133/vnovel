@@ -10,7 +10,7 @@
         <a href="{{ .Permalink }}">
             <h1 class="text-xl mb-2">{{ .Title }}</h1>
         </a>
-        <p class="mb-1 text-sm">{{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content)
+        <p class="mb-1 text-sm opacity-40">{{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content)
             220.0) }}{{ i18n "minutes" }}
         </p>
         {{ with .Params.tags }}
@@ -22,6 +22,6 @@
                 {{ end }}
             </div>
         {{ end }}
-        <p>{{ substr .Description 0 30 | plainify }}...</p>
+        <p class="opacity-70">{{ substr .Description 0 30 | plainify }}...</p>
     </div>
 </article>

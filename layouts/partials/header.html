@@ -1,4 +1,69 @@
-<header class="bg-white dark:bg-gray-900 dark:text-white">
+<style>
+  .mopen {
+    float: left;
+    display: block;
+    background: rgba(255, 255, 255, 0);
+    position: relative;
+    z-index: 1000;
+  }
+  
+  .mopen span {
+    transition: all 0.3s;
+    transform: rotate(0deg);
+    width: 50px;
+    height: 2px;
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -25px;
+  }
+  .mopen .top {
+    transform: translateY(-17px);
+  }
+  .mopen .bottom {
+    transform: translateY(17px);
+  }
+  .mopen.is-open span {
+    background: #fff;
+  }
+  .mopen.is-open .middle {
+    background: rgba(255, 255, 255, 0);
+  }
+  .mopen.is-open .top {
+    transform: rotate(-45deg) translateY(0px);
+  }
+  .mopen.is-open .bottom {
+    transform: rotate(45deg) translateY(0px);
+  }
+  #overlay {
+    visibility: hidden;
+    display: flex;
+    transition: 0.3s linear;
+    position: absolute;
+    z-index: 900;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    opacity: 0;
+  }
+  #overlay.open {
+    visibility: visible;
+    opacity: 0.95;
+  }
+  body.scroll-lock {
+    position: fixed;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+  }
+</style>
+<header class="bg-white dark:bg-warmgray-800 dark:text-white">
     <div id="overlay">
         <ul class="text-center list-none text-white text-3xl">
             {{ range .Site.Menus.main }}
@@ -22,7 +87,7 @@
             <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
         </div>
         <div class="pr-4 block lg:hidden">
-            <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded type-1">
+            <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
                 <span class="top bg-black dark:bg-white"></span>
                 <span class="middle bg-black dark:bg-white"></span>
                 <span class="bottom bg-black dark:bg-white"></span>
@@ -42,31 +107,3 @@
         </div>
     </nav>
 </header>
-<script>
-    function toggleNav() {
-        var hamburger = document.getElementById("hamburgerbtn");
-        var overlay = document.getElementById("overlay");
-        var body = document.body;
-
-        hamburger.addEventListener("click", function () {
-            overlay.classList.toggle("open");
-            hamburger.classList.toggle("is-open");
-            body.classList.toggle("scroll-lock");
-        });
-    }
-    toggleNav();
-    function toggleDarkMode() {
-      var icon = document.getElementById("icon");
-      if (document.documentElement.classList.contains('dark')) {
-        icon.classList.remove("icon-sun");
-        icon.classList.add("icon-moon");
-          document.documentElement.classList.remove('dark')
-          localStorage.theme = 'light'
-      } else {
-          icon.classList.remove("icon-moon");
-          icon.classList.add("icon-sun");
-        document.documentElement.classList.add('dark')
-        localStorage.theme = 'dark'
-      }
-    }
-</script>
