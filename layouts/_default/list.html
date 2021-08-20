@@ -11,7 +11,7 @@
 {{ end }}
 
 {{ define "main" }}
-<h2 class="text-4xl py-3 font-bold dark:text-white">{{if not .IsHome}}#{{ .Title }}{{end}}</h2>
+<h2 class="text-4xl py-3 dark:text-white">{{if not .IsHome}}#{{ .Title }}{{end}}</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {{if .IsHome}}
     {{.Scratch.Set "Paginator" (.Paginate (where .Site.RegularPages "Type" "in" site.Params.mainSections)
@@ -21,10 +21,10 @@
     {{end}}
     {{$paginator:=(.Scratch.Get "Paginator")}}
     {{ range $paginator.Pages }}
-    <div class="border-b">
+    <div class="border-b dark:border-warmgray-700">
         {{ .Render "summary" }}
     </div>
     {{ end }}
-    {{ partial "paginator.html" . }}
 </div>
+{{ partial "paginator.html" . }}
 {{ end }}

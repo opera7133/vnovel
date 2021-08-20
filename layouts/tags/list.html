@@ -9,7 +9,7 @@
     {{end}}
     {{$paginator:=(.Scratch.Get "Paginator")}}
     {{ range $paginator.Pages }}
-    <div class="border-b">
+    <div class="border-b dark:border-warmgray-700">
         {{ .Render "summary" }}
     </div>
     {{ end }}
