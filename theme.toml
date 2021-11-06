@@ -1,7 +1,7 @@
 name = "VNovel"
 license = "MIT"
 licenselink = "https://github.com/opera7133/vnovel/blob/master/LICENSE"
-description = "Theme for the novel. That's it."
+description = "Pixiv-like theme for novels."
 
 homepage = "https://github.com/opera7133/vnovel/"
 demosite = "https://vnovel.pages.dev"

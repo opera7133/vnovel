@@ -2,7 +2,7 @@
 
 ![](https://raw.githubusercontent.com/opera7133/vnovel/main/images/screenshot.png)
 
-Theme for the novel. That's it.
+Pixiv-like theme for novels.
 
 The demo can be seen here: https://vnovel.pages.dev
 
@@ -12,11 +12,11 @@ The demo can be seen here: https://vnovel.pages.dev
 ## Features
 * Responsive
 * Support tags
-* Darkmode
+* Switch Light / Dark
 * Google Analytics
 * Yandex Metrica
 * RSS Feeds
-* i18n
+* Supported i18n (en/ja)
 * [Lighthouse 100/100](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https%3A%2F%2Fvnovel.pages.dev%2F)
 
 ## Prerequisites

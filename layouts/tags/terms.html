@@ -1,0 +1,16 @@
+{{ define "main" }}
+<h2 class="text-4xl py-3 dark:text-white">#{{ .Title }}</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+    <div class="border-b dark:border-warmgray-700">
+        <a href="/tags/{{ $name | urlize }}">
+            <article class="p-6 flex">
+                <div class="ml-8">
+                    <h1 class="text-xl mb-2 text-blue-500">#{{ $name }} <span class="text-gray-800">({{ $taxonomy.Count }})</span></h1>
+                </div>
+            </article>
+        </a>
+    </div>
+    {{ end }}
+</div>
+{{ end }}

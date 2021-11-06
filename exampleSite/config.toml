@@ -20,16 +20,16 @@ enableRobotsTXT = true
 # The number of articles to be displayed on a single page.
 paginator_pages = "6"
 
-  [params.user]
-    icon = "/img/avatar.png"
+# Site logo.
+#logo = ""
 
   [params.homepage_meta_tags]
-    meta_description = "Theme for the novel. That's it."
+    meta_description = "Pixiv-like theme for novels."
     meta_og_title = "VNovel"
     meta_og_type = "website"
     meta_og_url = "https://vnovel.pages.dev"
     meta_og_image = "https://vnovel.pages.dev/img/thumbnail.png"
-    meta_og_description = "Theme for the novel. That's it."
+    meta_og_description = "Pixiv-like theme for novels."
     meta_twitter_card = "summary_large_image"
     meta_twitter_site = "@username"
     meta_twitter_creator = "@username"

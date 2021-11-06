@@ -84,7 +84,11 @@
     </div>
     <nav class="flex items-center justify-between flex-wrap p-4">
         <div class="flex items-center flex-shrink-0 text-2xl mx-6">
+          {{ if .Site.Params.logo }}
+            <a href="{{ .Site.BaseURL }}"><img src="{{ .Site.Params.logo }}" class="w-24 h-auto" /></a>
+          {{ else }}
             <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+          {{ end }}
         </div>
         <div class="pr-4 block lg:hidden">
             <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
