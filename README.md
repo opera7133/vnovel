@@ -19,21 +19,48 @@ The demo can be seen here: https://vnovel.pages.dev
 * Supported i18n (en/ja)
 * [Lighthouse 100/100](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https%3A%2F%2Fvnovel.pages.dev%2F)
 
-## Prerequisites
+## Installation
 
-Make sure to install `postcss-cli` and `autoprefixer` globally in your environment, as Hugo Pipe’s PostCSS requires it. This is mentioned in the [Hugo Docs](https://gohugo.io/hugo-pipes/postcss/).
+### Method 1
+
+Inside the folder of your Hugo site run:
 
 ```bash
-$ npm install -g postcss-cli
-$ npm install -g autoprefixer
+$ git clone https://github.com/opera7133/vnovel themes/vnovel
 ```
 
-## Installation
+Updating theme:
+
+```bash
+$ cd themes/vnovel
+$ git pull
+```
+
+### Method 2
+
 Inside the folder of your Hugo site run:
 
 ```bash
 $ git submodule add https://github.com/opera7133/vnovel.git themes/vnovel
-$ cd themes/vnovel
+```
+
+Updating theme:
+
+```bash
+$ git submodule update --remote --merge
+```
+
+### Install dependencies
+
+Copy at least the following files from `themes/vnovel/exampleSite` to the root folder of your site.
+
+- package.json
+- tailwind.config.js
+- postcss.config.js
+
+After that, run this command.
+
+```bash
 $ npm install
 ```
 
@@ -46,17 +73,19 @@ After installing the theme successfully it requires a just a few more steps to g
 Copy the config.toml in the exampleSite to the root of your Hugo site. Change strings as you like.
 
 ### Check your site
+
 In order to see your site in action, run Hugo's built-in local server.
+
 ```bash
-$ hugo server
+$ npm run start
 ```
+
 Now enter `localhost:1313` in the address bar of your browser.
 
-### Update the theme
-Inside the folder of your Hugo site run:
+### Build your site
 
 ```bash
-$ git submodule update --remote --merge
+$ npm run build
 ```
 
 ## Contributing

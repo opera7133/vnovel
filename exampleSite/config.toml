@@ -49,9 +49,6 @@ paginator_pages = "6"
     url = "/tags/"
     weight = 2
 
-[build]
-  writeStats = true
-
 # If you're using Yandex.Metrica, you can enable this feature.
 #[params.analytics.yandexmetrica]
 #    enabled = true
