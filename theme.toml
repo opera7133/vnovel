@@ -8,7 +8,6 @@ demosite = "https://vnovel.pages.dev"
 
 tags = ["minimal", "light", "dark", "simple", "clean", "tailwindcss", "personal", "responsive", "novel"]
 features = ["simple"]
-min_version = "0.66"
 
 [author]
   name = "wamo"

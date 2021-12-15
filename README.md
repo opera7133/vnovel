@@ -29,15 +29,32 @@ Inside the folder of your Hugo site run:
 $ git clone https://github.com/opera7133/vnovel themes/vnovel
 ```
 
+<<<<<<< HEAD
 Updating theme:
 
 ```bash
+=======
+## Installation
+
+### Method 1
+Inside the folder of your Hugo site run:
+
+```bash
+$ git clone https://github.com/opera7133/vnovel themes/vnovel
+```
+
+Updating theme:
+```bash
+>>>>>>> 4e00677d2d9c2d56fde21fee7ca23c6e1c8370e0
 $ cd themes/vnovel
 $ git pull
 ```
 
 ### Method 2
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4e00677d2d9c2d56fde21fee7ca23c6e1c8370e0
 Inside the folder of your Hugo site run:
 
 ```bash
@@ -45,12 +62,16 @@ $ git submodule add https://github.com/opera7133/vnovel.git themes/vnovel
 ```
 
 Updating theme:
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4e00677d2d9c2d56fde21fee7ca23c6e1c8370e0
 ```bash
 $ git submodule update --remote --merge
 ```
 
 ### Install dependencies
+<<<<<<< HEAD
 
 Copy at least the following files from `themes/vnovel/exampleSite` to the root folder of your site.
 
@@ -61,6 +82,10 @@ Copy at least the following files from `themes/vnovel/exampleSite` to the root f
 After that, run this command.
 
 ```bash
+=======
+```bash
+$ cd themes/vnovel
+>>>>>>> 4e00677d2d9c2d56fde21fee7ca23c6e1c8370e0
 $ npm install
 ```
 
