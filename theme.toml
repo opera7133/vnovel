@@ -6,7 +6,7 @@ description = "Pixiv-like theme for novels."
 homepage = "https://github.com/opera7133/vnovel/"
 demosite = "https://vnovel.pages.dev"
 
-tags = ["minimal", "light", "dark", "simple", "clean", "tailwindcss", "personal", "responsive", "novel"]
+tags = ["minimal", "light", "dark", "simple", "clean", "tailwindcss", "personal", "responsive"]
 features = ["simple"]
 
 [author]
