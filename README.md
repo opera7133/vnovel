@@ -15,7 +15,7 @@ The demo can be seen here: https://vnovel.pages.dev
 - Yandex Metrica
 - RSS Feeds
 - Supported i18n (en/ja)
-- [Lighthouse 100/100](https://lighthouse-dot-webdotdevsite.appspot.com//lh/html?url=https%3A%2F%2Fvnovel.pages.dev%2F)
+- [Lighthouse 100/100](https://pagespeed.web.dev/analysis/https-vnovel-pages-dev/jryvdmr9ob?form_factor=mobile)
 
 ## Installation
 
