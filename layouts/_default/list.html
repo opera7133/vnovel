@@ -47,8 +47,7 @@
   {{ end }}
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {{if .IsHome}}
-    {{.Scratch.Set "Paginator" (.Paginate (where .Site.RegularPages "Type" "in" site.Params.mainSections)
-    (.Site.Params.paginator_pages) )}}
+    {{.Scratch.Set "Paginator" (.Paginate (where .Site.RegularPages "Type" "in" site.Params.mainSections) (.Site.Params.paginator_pages) )}}
     {{else if or (eq .Title "r18") (eq .Title "R18") (eq .Title "R-18") }}
     {{ $r18Tags := slice "r18" "R18" "r-18" "R-18" }}
     {{ $r18Pages := where .Site.RegularPages ".Params.tags" "intersect" $r18Tags }}
