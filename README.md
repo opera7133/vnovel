@@ -11,11 +11,12 @@ The demo can be seen here: https://vnovel.pages.dev
 - Responsive
 - Support tags
 - Switch Light / Dark
+- Changeable font and background color
 - Google Analytics
 - Giscus
 - RSS Feeds
 - Supported i18n (en/ja)
-- [Lighthouse 100/100](https://pagespeed.web.dev/analysis/https-vnovel-pages-dev/jryvdmr9ob?form_factor=mobile)
+- [Lighthouse 100/100](https://pagespeed.web.dev/analysis/https-vnovel-pages-dev/xzwf25qvaw?form_factor=mobile)
 
 ## Installation
 
