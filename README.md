@@ -12,7 +12,7 @@ The demo can be seen here: https://vnovel.pages.dev
 - Support tags
 - Switch Light / Dark
 - Google Analytics
-- Yandex Metrica
+- Giscus
 - RSS Feeds
 - Supported i18n (en/ja)
 - [Lighthouse 100/100](https://pagespeed.web.dev/analysis/https-vnovel-pages-dev/jryvdmr9ob?form_factor=mobile)
@@ -53,10 +53,6 @@ $ git submodule update --remote --merge
 Copy at least the following files from `themes/vnovel/exampleSite` to the root folder of your site.
 
 - package.json
-- tailwind.config.js
-- postcss.config.js
-
-After that, run this command.
 
 ```bash
 $ npm install
@@ -70,14 +66,14 @@ After installing the theme successfully it requires a just a few more steps to g
 
 ### Update config file
 
-Copy the config.toml in the exampleSite to the root of your Hugo site. Change strings as you like.
+Copy the hugo.toml in the exampleSite to the root of your Hugo site. Change strings as you like.
 
 ### Check your site
 
 In order to see your site in action, run Hugo's built-in local server.
 
 ```bash
-$ npm run start
+$ hugo server
 ```
 
 Now enter `localhost:1313` in the address bar of your browser.
@@ -85,7 +81,7 @@ Now enter `localhost:1313` in the address bar of your browser.
 ### Build your site
 
 ```bash
-$ npm run build
+$ hugo
 ```
 
 ## Contributing

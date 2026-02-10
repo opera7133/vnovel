@@ -1,27 +1,62 @@
 <article class="p-6 dark:text-white lg:flex">
-    <a href="{{ .Permalink }}" aria-label="Read">
-        {{ if .Params.image }}
-        <img class="rounded mx-auto w-24 h-32 lg:mx-0 mb-5 object-cover lg:mb-0" src="{{ .Params.image | relURL }}" alt="thumbnail" />
-        {{ else }}
-        <img class="rounded mx-auto w-auto h-32 lg:mx-0 mb-5 lg:mb-0" src="{{ "/img/novel.png" | relURL }}" alt="thumbnail" />
-        {{ end }}
+  <a href="{{ .Permalink }}" aria-label="Read" class="shrink-0">
+    {{ if .Params.image }}
+    <img class="rounded mx-auto w-24 h-32 lg:mx-0 mb-5 object-cover lg:mb-0" src="{{ .Params.image | relURL }}" alt="thumbnail" />
+    {{ else }}
+    <img class="rounded mx-auto w-auto h-32 lg:mx-0 mb-5 lg:mb-0" src="{{ "/img/novel.svg" | relURL }}" alt="thumbnail" />
+    {{ end }}
+  </a>
+  <div class="lg:ml-6">
+    <a href="{{ .Permalink }}">
+      <h1 class="text-xl mb-1 font-semibold">{{ .Title }}</h1>
     </a>
-    <div class="lg:ml-8">
-        <a href="{{ .Permalink }}">
-            <h1 class="text-xl mb-2">{{ .Title }}</h1>
-        </a>
-        <p class="mb-1 text-sm opacity-40">{{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content)
-            220.0) }}{{ i18n "minutes" }}
-        </p>
-        {{ with .Params.tags }}
-            <div id="tags">
-                {{ range . }}
-                <span
-                    class="inline-flex my-2 mr-2 leading-4 mb-2 content-center justify-center h-8 text-blue-600"><a
-                        href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a></span>
-                {{ end }}
-            </div>
+    <div class="flex items-center mb-1 text-xs text-neutral-500">
+      {{ with .Params.authors }}
+      {{ range . }}
+      {{ $authorName := . }}
+      {{ $authorPage := site.GetPage (printf "/authors/%s" ($authorName | urlize)) }}
+      <a href="{{ "authors" | absURL }}/{{ $authorName | urlize }}" class="hover:underline flex items-center mr-2 text-neutral-500 dark:text-neutral-300">
+        {{ if and $authorPage $authorPage.Params.avatar }}
+        <img src="{{ $authorPage.Params.avatar | relURL }}" class="w-4 h-4 rounded-full mr-1 opacity-70" alt="avatar">
+        {{ else if $.Params.avatar }}
+        <img src="{{ $.Params.avatar | relURL }}" class="w-4 h-4 rounded-full mr-1 opacity-70" alt="avatar">
         {{ end }}
-        <p class="opacity-70">{{ substr .Description 0 30 | plainify }}...</p>
+        {{ $authorName }}
+      </a>
+      {{ end }}
+      {{ end }}
     </div>
+    <div id="tags" class="flex gap-2 mb-1">
+      {{ $r18tags := slice "r18" "R18" "r-18" "R-18" }}
+      {{ $r15tags := slice "r15" "R15" "r-15" "R-15" }}
+      {{ $matchedR18 := intersect .Params.tags $r18tags }}
+      {{ $matchedR15 := intersect .Params.tags $r15tags }}
+
+      {{ if gt (len $matchedR18) 0 }}
+      {{ $tagName := index $matchedR18 0 }}
+      <span class="text-sm inline-flex leading-4 content-center justify-center text-rose-600 font-semibold">
+        <a href="{{ "tags" | absURL }}/{{ $tagName | urlize }}">R-18</a>
+      </span>
+      {{ else if gt (len $matchedR15) 0 }}
+      {{ $tagName := index $matchedR15 0 }}
+      <span class="text-sm inline-flex leading-4 content-center justify-center text-orange-500 font-semibold">
+        <a href="{{ "tags" | absURL }}/{{ $tagName | urlize }}">R-15</a>
+      </span>
+      {{ end }}
+
+      {{ with .Params.tags }}
+      {{ range . }}
+      {{ if and (not (in $r18tags .)) (not (in $r15tags .)) }}
+      <span class="text-sm inline-flex leading-4 content-center justify-center text-cyan-700">
+        <a href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a>
+      </span>
+      {{ end }}
+      {{ end }}
+      {{ end }}
+    </div>
+    <p class="mb-1 text-sm text-neutral-500 dark:text-neutral-300">{{ substr .Description 0 52 | plainify }}...</p>
+    <p class="text-xs opacity-40">{{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content)
+        220.0) }}{{ i18n "minutes" }}
+    </p>
+  </div>
 </article>

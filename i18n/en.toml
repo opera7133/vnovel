@@ -4,5 +4,29 @@ other = "words"
 [minutes]
 other = "min read"
 
-[posts]
+[novels]
+other = "Novels"
+
+[others]
 other = "Other novels"
+
+[theme]
+other = "Theme"
+
+[font]
+other = "Font"
+
+[link-copy]
+other = "Link copied!"
+
+[search]
+other = "Search tags..."
+
+[sort_name]
+other = "Name (A-Z)"
+
+[sort_count]
+other = "Count"
+
+[no_results]
+other = "No tags found."

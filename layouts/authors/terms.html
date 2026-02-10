@@ -1,0 +1,33 @@
+{{ define "main" }}
+<main class="container mx-auto max-w-7xl my-4">
+  <div class="px-4">
+    <h2 class="text-4xl py-6 font-bold dark:text-white">{{ .Title }}</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {{ range $name, $taxonomy := .Site.Taxonomies.authors }}
+      <a href="/authors/{{ $name | urlize }}" class="group">
+        <div class="p-4 bg-white dark:bg-neutral-800 rounded-xl hover:bg-gray-50 dark:hover:bg-neutral-700 transition-all duration-200 flex items-center shadow-sm border border-neutral-100 dark:border-neutral-700">
+          <div class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-neutral-200 dark:bg-neutral-700">
+            {{ $authorPage := $.Site.GetPage (printf "/authors/%s" ($name | urlize)) }}
+            {{ if and $authorPage $authorPage.Params.avatar }}
+            <img src="{{ $authorPage.Params.avatar | relURL }}" alt="{{ $name }}" class="w-full h-full object-cover">
+            {{ else }}
+            <!-- Try to get avatar from the first post by this author if author page doesn't exist -->
+            {{ $firstPost := index $taxonomy.Pages 0 }}
+            {{ if $firstPost.Params.avatar }}
+            <img src="{{ $firstPost.Params.avatar | relURL }}" alt="{{ $name }}" class="w-full h-full object-cover">
+            {{ else }}
+            <img src="{{ "/img/avatar.svg" | relURL }}" alt="{{ $name }}" class="w-full h-full p-2 opacity-50">
+            {{ end }}
+            {{ end }}
+          </div>
+          <div>
+            <span class="text-lg font-bold text-neutral-800 dark:text-neutral-100 group-hover:text-cyan-600 transition-colors">{{ $name }}</span>
+            <p class="text-sm text-neutral-500 dark:text-neutral-400">{{ $taxonomy.Count }} {{ i18n "novels" }}</p>
+          </div>
+        </div>
+      </a>
+      {{ end }}
+    </div>
+  </div>
+</main>
+{{ end }}

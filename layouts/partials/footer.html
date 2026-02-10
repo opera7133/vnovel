@@ -1,43 +1,7 @@
-<footer class="bg-white dark:bg-warmgray-800 dark:text-white pt-10 pb-12">
+<footer class="bg-white dark:bg-neutral-800 dark:text-white pt-10 pb-12">
   <div class="container mx-auto px-4">
     <p>&copy; {{ dateFormat "2006" now }} <a href="{{ .Site.BaseURL }}" class="hover:text-gray-500 duration-200">{{ .Site.Title }}</a></p>
       <p class="">Powered by <a href="https://gohugo.io" class="hover:text-gray-500 duration-200">Hugo</a>, Theme <a
               href="https://github.com/opera7133/VNovel" class="hover:text-gray-500 duration-200">VNovel</a>.</p>
   </div>
 </footer>
-<script>
-  function toggleNav() {
-      var hamburger = document.getElementById("hamburgerbtn");
-      var overlay = document.getElementById("overlay");
-      var body = document.body;
-
-      hamburger.addEventListener("click", function () {
-          overlay.classList.toggle("open");
-          hamburger.classList.toggle("is-open");
-          body.classList.toggle("scroll-lock");
-      });
-  }
-  toggleNav();
-
-  var icon = document.getElementById("icon");
-  if (document.documentElement.classList.contains("dark") || localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      icon.classList.remove("icon-moon");
-      icon.classList.add("icon-sun");
-      document.documentElement.classList.add('dark')
-  } else {
-      document.documentElement.classList.remove('dark')
-  }
-  function toggleDarkMode() {
-    if (document.documentElement.classList.contains('dark')) {
-      icon.classList.remove("icon-sun");
-      icon.classList.add("icon-moon");
-      document.documentElement.classList.remove('dark')
-      localStorage.theme = 'light'
-    } else {
-      icon.classList.remove("icon-moon");
-      icon.classList.add("icon-sun");
-      document.documentElement.classList.add('dark')
-      localStorage.theme = 'dark'
-    }
-  }
-</script>

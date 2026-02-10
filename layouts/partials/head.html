@@ -1,17 +1,18 @@
-{{- partial "analytics" . -}}
-{{- if .Site.Params.Analytics.Yandexmetrica.Enabled -}}
-{{ partial "metrica.html" . }}
-{{- end -}}
 <meta charset="utf-8">
-<i class="dark hidden"></i>
-<title>{{site.Title}}{{if not .IsHome}} | {{.Title}}{{end}}</title>
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>{{if not .IsHome}}{{.Title}} - {{end}}{{site.Title}}</title>
+{{- partial "analytics" . -}}
+<i class="dark hidden"></i>
 <link rel="icon" href='{{ "favicon-32x32.png" | relURL }}'>
-{{ $styles := resources.Get "css/style.css" | postCSS }}
-{{ if .Site.IsServer }}
-<link rel="stylesheet" href="{{ $styles.RelPermalink }}">
-{{ else }}
-{{ $styles := $styles | minify | fingerprint | resources.PostProcess }}
-<link rel="stylesheet" href="{{ $styles.RelPermalink }}" />
+{{ with resources.Get "css/style.css" }}
+  {{ $opts := dict "minify" (not hugo.IsDevelopment) }}
+  {{ with . | css.TailwindCSS $opts }}
+    {{ if hugo.IsDevelopment }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}">
+    {{ else }}
+      {{ with . | fingerprint }}
+        <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" crossorigin="anonymous">
+      {{ end }}
+    {{ end }}
+  {{ end }}
 {{ end }}
-<link href='{{ "/css/style.min.css" | relURL }}' rel="stylesheet" type="text/css">

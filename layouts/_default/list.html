@@ -11,20 +11,62 @@
 {{ end }}
 
 {{ define "main" }}
-<h2 class="text-4xl py-3 dark:text-white">{{if not .IsHome}}#{{ .Title }}{{end}}</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<main class="container mx-auto max-w-7xl my-4">
+  <h2 class="text-4xl py-3 px-4 dark:text-white font-semibold">
+    {{ if not .IsHome }}
+    {{ if or (eq .Title "r18") (eq .Title "R18") (eq .Title "R-18") }}
+    <span class="text-rose-600">R-18</span>
+    {{ else if or (eq .Title "r15") (eq .Title "R15") (eq .Title "R-15") }}
+    <span class="text-orange-500">R-15</span>
+    {{ else if eq .Data.Plural "authors" }}
+    {{ .Title }}
+    {{ else }}
+    #{{ .Title }}
+    {{ end }}
+    {{ end }}
+  </h2>
+
+  {{ if or (eq .Title "r18") (eq .Title "R18") (eq .Title "R-18") }}
+  <div class="px-4 mb-6">
+    <div class="px-4 py-3 bg-rose-50 dark:bg-rose-900/20 text-rose-700 dark:text-rose-400 border border-rose-200 dark:border-rose-800 rounded-lg text-sm flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+      </svg>
+      <span>このページにはR-18（18禁）コンテンツが含まれています。18歳未満の方は閲覧を控えてください。</span>
+    </div>
+  </div>
+  {{ else if or (eq .Title "r15") (eq .Title "R15") (eq .Title "R-15") }}
+  <div class="px-4 mb-6">
+    <div class="px-4 py-3 bg-orange-50 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 border border-orange-200 dark:border-orange-800 rounded-lg text-sm flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+      </svg>
+      <span>このページにはR-15（15禁）コンテンツが含まれています。</span>
+    </div>
+  </div>
+  {{ end }}
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
     {{if .IsHome}}
     {{.Scratch.Set "Paginator" (.Paginate (where .Site.RegularPages "Type" "in" site.Params.mainSections)
     (.Site.Params.paginator_pages) )}}
+    {{else if or (eq .Title "r18") (eq .Title "R18") (eq .Title "R-18") }}
+    {{ $r18Tags := slice "r18" "R18" "r-18" "R-18" }}
+    {{ $r18Pages := where .Site.RegularPages ".Params.tags" "intersect" $r18Tags }}
+    {{.Scratch.Set "Paginator" (.Paginate $r18Pages (.Site.Params.paginator_pages | default 6)) }}
+    {{else if or (eq .Title "r15") (eq .Title "R15") (eq .Title "R-15") }}
+    {{ $r15Tags := slice "r15" "R15" "r-15" "R-15" }}
+    {{ $r15Pages := where .Site.RegularPages ".Params.tags" "intersect" $r15Tags }}
+    {{.Scratch.Set "Paginator" (.Paginate $r15Pages (.Site.Params.paginator_pages | default 6)) }}
     {{else}}
     {{.Scratch.Set "Paginator" .Paginator}}
     {{end}}
     {{$paginator:=(.Scratch.Get "Paginator")}}
     {{ range $paginator.Pages }}
-    <div class="border-b dark:border-warmgray-700">
-        {{ .Render "summary" }}
+    <div class="border-b border-neutral-200 dark:border-neutral-700">
+      {{ .Render "summary" }}
     </div>
     {{ end }}
-</div>
-{{ partial "paginator.html" . }}
+  </div>
+  {{ partial "paginator.html" . }}
+</main>
 {{ end }}

@@ -1,0 +1,75 @@
+{{ define "main" }}
+<main>
+  <!-- Author Profile Section -->
+  <div class="bg-white dark:bg-neutral-800 overflow-hidden border border-neutral-100 dark:border-neutral-700 mb-8">
+    <!-- Banner -->
+    {{ if .Params.banner }}
+    <div class="h-48 w-full bg-cover bg-center" style="background-image: url('{{ .Params.banner | relURL }}');"></div>
+    {{ else }}
+    <div class="h-48 w-full bg-neutral-200 dark:bg-neutral-700"></div>
+    {{ end }}
+
+    <div class="px-6 pb-6 container mx-auto max-w-7xl">
+      <div class="relative flex flex-col md:flex-row items-start mb-4">
+        <!-- Avatar -->
+        <div class="-mt-6 relative w-26 h-26 rounded-full border-4 border-white dark:border-neutral-800 overflow-hidden bg-white dark:bg-neutral-800">
+          {{ if .Params.avatar }}
+          <img src="{{ .Params.avatar | relURL }}" alt="{{ .Title }}" class="w-full h-full object-cover">
+          {{ else }}
+          <img src="{{ "/img/avatar.svg" | relURL }}" alt="{{ .Title }}" class="w-full h-full p-2 opacity-50">
+          {{ end }}
+        </div>
+
+        <!-- Social Links -->
+        <div class="flex flex-col gap-2 py-6 px-4">
+          <h1 class="text-xl font-bold dark:text-white mb-2">{{ .Title }}</h1>
+
+          <div class="flex gap-4 mb-1">
+            {{ with .Params.social }}
+            {{ with .website }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="transition-colors text-neutral-600 dark:text-neutral-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L8 2.207l6.646 6.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293z"/>
+                <path d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293z"/>
+              </svg>
+            </a>{{ end }}
+            {{ with .bluesky }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="transition-colors text-neutral-600 dark:text-neutral-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M3.468 1.948C5.303 3.325 7.276 6.118 8 7.616c.725-1.498 2.698-4.29 4.532-5.668C13.855.955 16 .186 16 2.632c0 .489-.28 4.105-.444 4.692-.572 2.04-2.653 2.561-4.504 2.246 3.236.551 4.06 2.375 2.281 4.2-3.376 3.464-4.852-.87-5.23-1.98-.07-.204-.103-.3-.103-.218 0-.081-.033.014-.102.218-.379 1.11-1.855 5.444-5.231 1.98-1.778-1.825-.955-3.65 2.28-4.2-1.85.315-3.932-.205-4.503-2.246C.28 6.737 0 3.12 0 2.632 0 .186 2.145.955 3.468 1.948"/>
+              </svg>
+            </a>{{ end }}
+            {{ with .x }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="transition-colors text-neutral-600 dark:text-neutral-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+              </svg>
+            </a>{{ end }}
+            {{ with .github }}<a href="{{ . }}" target="_blank" rel="noopener noreferrer" class="transition-colors text-neutral-600 dark:text-neutral-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+              </svg>
+            </a>{{ end }}
+            {{ end }}
+          </div>
+
+          <div class="prose dark:prose-invert max-w-none text-neutral-600 dark:text-neutral-300">
+            {{ .Content }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Posts List -->
+  <div class="container mx-auto max-w-7xl px-4">
+    <h2 class="text-2xl font-bold mb-4 dark:text-white">{{ i18n "novels" | default "Novels" }}</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {{ $paginator := .Paginate .Pages }}
+      {{ range $paginator.Pages }}
+      <div class="border-b border-neutral-200 dark:border-neutral-700">
+            {{ .Render "summary" }}
+      </div>
+      {{ end }}
+    </div>
+    {{ partial "paginator.html" . }}
+  </div>
+</main>
+{{ end }}

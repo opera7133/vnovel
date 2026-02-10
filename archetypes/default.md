@@ -1,6 +1,5 @@
 ---
-author: ""
-avatar: ""
+authors: []
 title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 image: ""

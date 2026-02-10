@@ -9,109 +9,126 @@
 <meta property="twitter:title" content="{{ .Title }}">
 
 {{ if .Params.image }}
-    {{ with .Params.image }}
-    <meta property="og:image" content="{{ . | absURL }}">
-    <meta property="og:image:url" content="{{ . | absURL }}">
-    {{ end }}
+{{ with .Params.image }}
+<meta property="og:image" content="{{ . | absURL }}">
+<meta property="og:image:url" content="{{ . | absURL }}">
+{{ end }}
 {{ else }}
-    <meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image | absURL }}">
-    <meta property="og:image:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_image | absURL }}">
+<meta property="og:image" content="{{ .Site.Params.homepage_meta_tags.meta_og_image | absURL }}">
+<meta property="og:image:url" content="{{ .Site.Params.homepage_meta_tags.meta_og_image | absURL }}">
 {{ end }}
 
 {{- if .Description }}
-  <meta property="og:description" content="{{ substr .Description 0 130 | plainify }}" />
-  <meta property="twitter:description" content="{{ substr .Description 0 130 | plainify }}" />
+<meta property="og:description" content="{{ substr .Description 0 130 | plainify }}" />
+<meta property="twitter:description" content="{{ substr .Description 0 130 | plainify }}" />
 {{- else if .Summary }}
-  <meta property="og:description" content="{{ substr .Summary 0 130 | plainify }}" />
-  <meta property="twitter:description" content="{{ substr .Summary 0 130 | plainify }}" />
+<meta property="og:description" content="{{ substr .Summary 0 130 | plainify }}" />
+<meta property="twitter:description" content="{{ substr .Summary 0 130 | plainify }}" />
 {{- else if .Site.Params.description }}
-  <meta property="og:description" content="{{ substr .Site.Params.description 0 130 | plainify }}" />
-  <meta property="twitter:description" content="{{ substr .Site.Params.description 0 130 | plainify }}" />
+<meta property="og:description" content="{{ substr .Site.Params.description 0 130 | plainify }}" />
+<meta property="twitter:description" content="{{ substr .Site.Params.description 0 130 | plainify }}" />
 {{- end }}
 {{ end }}
 
 {{ define "main" }}
-<div class="flex">
-    <div class="w-full lg:w-3/4 px-2 dark:text-white">
-        <div class="bg-white dark:bg-warmgray-700 lg:flex p-7 rounded-t-xl">
-            {{ if .Params.image }}
-            <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
-            {{ else }}
-            <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ "/img/novel.png" | relURL }}" alt="thumbnail"/>
-            {{ end }}
-            <div>
-                <h1 class="title text-xl my-3">{{ .Title }}</h1>
-                <p class="mb-3 text-xs opacity-70">{{ .Content | countwords }} {{ i18n "words" }}（{{ if eq .Site.Language.Lang "ja" }}読了目安: {{ end }}{{ math.Round (div (countwords .Content)
-                    220.0) }}{{ i18n "minutes" }}）
-                </p>
-                <p class="text-sm opacity-80">{{ replaceRE "(https?://[a-zA-Z0-9\\-._~:/?#\\[\\]@!\\$&'()*\\+,;%=]+)" "<a href=\"$1\" class=\"text-blue-500 opacity-100 hover:text-blue-700 focus:text-blue-700\">$1</a>" .Description | safeHTML }}</p>
-                {{ with .Params.tags }}
-                <div id="tags">
-                    {{ range . }}
-                    <span
-                        class="text-sm inline-flex my-2 mr-2 leading-4 mb-2 content-center justify-center h-8 text-blue-500"><a
-                            href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a></span>
-                    {{ end }}
-                </div>
-                {{ end }}
-                <h4 id="date" class="text-sm">{{ .Date.Format "2006/1/2 15:04" }}</h4>
-            </div>
+<main class="container mx-auto max-w-7xl flex my-4">
+  <div class="w-full lg:w-3/4 px-2 dark:text-white">
+    <div class="bg-white dark:bg-neutral-700 lg:flex p-7 rounded-t-xl">
+      {{ if .Params.image }}
+      <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
+      {{ else }}
+      <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ "/img/novel.svg" | relURL }}" alt="thumbnail"/>
+      {{ end }}
+      <div>
+        <h1 class="title text-2xl my-3 font-bold">{{ .Title }}</h1>
+        <p class="mb-3 text-xs opacity-70">{{ .Content | countwords }} {{ i18n "words" }}（{{ if eq .Site.Language.Lang "ja" }}読了目安: {{ end }}{{ math.Round (div (countwords .Content)
+            220.0) }}{{ i18n "minutes" }}）
+        </p>
+        <p class="mb-2 text-sm opacity-80">{{ replaceRE "(https?://[a-zA-Z0-9\\-._~:/?#\\[\\]@!\\$&'()*\\+,;%=]+)" "<a href=\"$1\" class=\"text-cyan-600 opacity-100 hover:text-cyan-700 focus:text-cyan-700\">$1</a>" .Description | safeHTML }}</p>
+        <div id="tags" class="flex gap-2 mb-2">
+          {{ $r18tags := slice "r18" "R18" "r-18" "R-18" }}
+          {{ $r15tags := slice "r15" "R15" "r-15" "R-15" }}
+          {{ $matchedR18 := intersect .Params.tags $r18tags }}
+          {{ $matchedR15 := intersect .Params.tags $r15tags }}
+
+          {{ if gt (len $matchedR18) 0 }}
+          {{ $tagName := index $matchedR18 0 }}
+          <span class="text-sm inline-flex leading-4 content-center justify-center text-rose-600 font-semibold">
+            <a href="{{ "tags" | absURL}}/{{ $tagName | urlize }}">R-18</a>
+          </span>
+          {{ else if gt (len $matchedR15) 0 }}
+          {{ $tagName := index $matchedR15 0 }}
+          <span class="text-sm inline-flex leading-4 content-center justify-center text-orange-500 font-semibold">
+            <a href="{{ "tags" | absURL}}/{{ $tagName | urlize }}">R-15</a>
+          </span>
+          {{ end }}
+          {{ with .Params.tags }}
+          {{ range . }}
+          {{ if and (not (in $r18tags .)) (not (in $r15tags .)) }}
+          <span class="text-sm inline-flex leading-4 content-center justify-center text-cyan-600">
+            <a href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a>
+          </span>
+          {{ end }}
+          {{ end }}
+          {{ end }}
         </div>
-        <div class="bg-white dark:bg-warmgray-800 pt-14 border-t border-b dark:border-warmgray-800">
-            <div class="mx-auto max-w-2xl">
-                <div class="prose lg:prose-xl dark:prose-dark text-lg py-3 px-5">
-                    {{ .Content }}
-                </div>
-            </div>
-        </div>
-        <div class="bg-white dark:bg-warmgray-800 pt-2 pb-12 px-4">
-            <a href="https://twitter.com/intent/tweet?url={{ .Permalink }}&text={{ .Title }}" target="_blank" title="Twitter" class="float-right mt-1">
-                <svg width="24" height="24" viewBox="0 0 24 24" class="w-6 h-6 fill-current dark:text-white"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-            </a>
-            <a href="https://getpocket.com/edit?url={{ .Permalink }}&title={{ .Title }}" target="_blank" title="Pocket" class="float-right inline-block mr-4">
-                <svg width="32" height="32" viewBox="0 0 32 32" class="w-8 h-8 fill-current dark:text-white"><path d="M 7 5 C 5.355469 5 4 6.355469 4 8 L 4 15 C 4 21.617188 9.382813 27 16 27 C 22.617188 27 28 21.617188 28 15 L 28 8 C 28 6.355469 26.644531 5 25 5 Z M 7 7 L 25 7 C 25.566406 7 26 7.433594 26 8 L 26 15 C 26 20.535156 21.535156 25 16 25 C 10.464844 25 6 20.535156 6 15 L 6 8 C 6 7.433594 6.433594 7 7 7 Z M 10.65625 11.40625 C 10.273438 11.40625 9.886719 11.582031 9.59375 11.875 C 9.007813 12.460938 9.007813 13.382813 9.59375 13.96875 L 15 19.375 C 15.28125 19.65625 15.664063 19.8125 16.0625 19.8125 C 16.460938 19.8125 16.84375 19.65625 17.125 19.375 L 22.40625 14.125 C 22.992188 13.539063 22.992188 12.585938 22.40625 12 C 21.820313 11.414063 20.867188 11.414063 20.28125 12 L 16.0625 16.21875 L 11.71875 11.875 C 11.425781 11.582031 11.039063 11.40625 10.65625 11.40625 Z"/></svg>
-            </a>
-            <a href="https://www.facebook.com/sharer/sharer.php?u={{ .Permalink }}&t={{ .Title }}" target="_blank" title="Facebook" class="float-right inline-block mr-3 mt-1">
-                <svg width="24" height="24" viewBox="0 0 24 24" class="w-6 h-6 fill-current dark:text-white"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
-            </a>
-        </div>
-        <div class="bg-white dark:bg-warmgray-700 p-7 rounded-b-xl">
-            <div class="mx-auto max-w-2xl">
-                {{ template "_internal/disqus.html" . }}
-            </div>
-        </div>
+        <time id="date" class="text-xs text-neutral-500 dark:text-neutral-300">{{ .Date.Format "2006/01/02 15:04" }}</time>
+      </div>
     </div>
-    <div class="mt-8 ml-5 lg:w-1/4 font-bold lg:block hidden">
-        {{ if .Params.author }}
-        <div class="px-4 dark:text-white lg:flex">
-            <div>
-                {{ if .Params.avatar }}
-                <img src="{{ .Params.avatar }}" class="w-11 rounded-full" />
-                {{ else }}
-                <img src="/img/avatar.png" class="w-11 rounded-full" />
-                {{ end }}
-            </div>
-            <p class="mt-2 ml-2">{{ .Params.author }}</p>
+    {{ partial "settings_panel.html" . }}
+    <div class="bg-white dark:bg-neutral-800 pt-10 border-b border-neutral-200 dark:border-neutral-800" id="content-bg">
+      <div class="mx-auto max-w-2xl">
+        <div class="prose prose-sm lg:prose-base max-w-none dark:prose-invert py-3 px-5" id="article-content">
+          {{ .Content }}
         </div>
-        {{ end }}
-        <div class="mt-7">
-            {{ $filteredPosts := where .Site.RegularPages "Type" "in" site.Params.mainSections }}
-            {{ $relatedPosts := shuffle $filteredPosts | first 5 }}
-            {{- if $relatedPosts }}
-            <div class="rounded-xl panel mb-3 pb-5">
-                <p class="mx-4 text-base text-gray-700 dark:text-white pt-5">{{ i18n "posts" }}</p>
-                <div class="mx-4">
-                    {{ range $relatedPosts }}
-                    <a href="{{ .RelPermalink }}" class="">
-                        <div class="px-2 py-1 rounded w-full block dark:hover:bg-warmgray-800 hover:bg-gray-200 duration-200">
-                            <div class="text-gray-900 dark:text-gray-100 text-base">{{.Title}}</div>
-                        </div>
-                        {{- end }}
-                    </a>
-                    {{- end }}
-                </div>
-            </div>
-        </div>
+      </div>
     </div>
-</div>
+    <div class="bg-white dark:bg-neutral-800 pt-2 pb-12 px-4" id="sns-bg">
+      <div class="mx-auto max-w-2xl">
+        {{ partial "sns_share.html" . }}
+      </div>
+    </div>
+    <div class="bg-white dark:bg-neutral-700 p-7 rounded-b-xl">
+      <div class="mx-auto max-w-2xl">
+        {{ partial "comments.html" . }}
+      </div>
+    </div>
+  </div>
+  <div class="mt-8 ml-5 lg:w-1/4 font-bold lg:block hidden">
+    {{ with .Params.authors }}
+    <div class="px-4 dark:text-white">
+      {{ range . }}
+      <a href="{{ "authors" | absURL }}/{{ . | urlize }}" class="hover:underline lg:flex mb-3">
+        <div>
+          {{ if $.Params.avatar }}
+          <img src="{{ $.Params.avatar | relURL }}" class="w-11 rounded-full" />
+          {{ else }}
+          <img src="/img/avatar.svg" class="w-11 rounded-full" />
+          {{ end }}
+        </div>
+        <p class="mt-2 ml-2">{{ . }}</p>
+      </a>
+      {{ end }}
+    </div>
+    {{ end }}
+    <div class="mt-7">
+      {{ $filteredPosts := where .Site.RegularPages "Type" "in" site.Params.mainSections }}
+      {{ $relatedPosts := shuffle $filteredPosts | first 5 }}
+      {{- if $relatedPosts }}
+      <div class="rounded-xl panel mb-3 pb-5">
+        <p class="mx-4 text-base text-gray-700 dark:text-white pt-5">{{ i18n "others" }}</p>
+        <div class="mx-4">
+          {{ range $relatedPosts }}
+          <a href="{{ .RelPermalink }}" class="">
+            <div class="px-2 py-1 rounded w-full block dark:hover:bg-neutral-800 hover:bg-gray-200 duration-200">
+              <div class="text-gray-900 dark:text-gray-100 text-base">{{.Title}}</div>
+            </div>
+            {{- end }}
+          </a>
+          {{- end }}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
 {{ end }}

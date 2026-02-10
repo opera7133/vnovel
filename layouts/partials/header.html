@@ -1,113 +1,83 @@
-<style>
-  .mopen {
-    float: left;
-    display: block;
-    background: rgba(255, 255, 255, 0);
-    position: relative;
-    z-index: 1000;
-  }
-  
-  .mopen span {
-    transition: all 0.3s;
-    transform: rotate(0deg);
-    width: 50px;
-    height: 2px;
-    display: block;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -25px;
-  }
-  .mopen .top {
-    transform: translateY(-17px);
-  }
-  .mopen .bottom {
-    transform: translateY(17px);
-  }
-  .mopen.is-open span {
-    background: #fff;
-  }
-  .mopen.is-open .middle {
-    background: rgba(255, 255, 255, 0);
-  }
-  .mopen.is-open .top {
-    transform: rotate(-45deg) translateY(0px);
-  }
-  .mopen.is-open .bottom {
-    transform: rotate(45deg) translateY(0px);
-  }
-  #overlay {
-    visibility: hidden;
-    display: flex;
-    transition: 0.3s linear;
-    position: absolute;
-    z-index: 900;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #222;
-    opacity: 0;
-  }
-  #overlay.open {
-    visibility: visible;
-    opacity: 0.95;
-  }
-  body.scroll-lock {
-    position: fixed;
-    left: 0px;
-    right: 0px;
-    top: 0px;
-    bottom: 0px;
-  }
-</style>
-<header class="bg-white dark:bg-warmgray-800 dark:text-white">
-    <div id="overlay">
-        <ul class="text-center list-none text-white text-3xl">
-            {{ range .Site.Menus.main }}
-            <li class="p-2">
-                <a href="{{ .URL }}">
-                    <span>{{ .Name }}</span>
-                </a>
-            </li>
-            {{ end }}
-            {{ range .Site.Menus.ex }}
-            <li class="p-2">
-                <a href="{{ .URL }}">
-                    <span>{{ .Name }}</span>
-                </a>
-            </li>
-            {{ end }}
-        </ul>
+<header class="bg-white dark:bg-neutral-800 dark:text-white">
+  <!-- Mobile Menu Backdrop -->
+  <div id="menu-backdrop" class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleNav()"></div>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="menu-drawer" class="fixed inset-y-0 right-0 z-50 w-64 bg-white dark:bg-neutral-900 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <div class="p-6 grow overflow-y-auto">
+      <div class="flex justify-between items-center mb-8">
+        <span class="text-xl font-bold dark:text-white">Menu</span>
+      </div>
+
+      <ul class="space-y-2">
+        {{ range .Site.Menus.main }}
+        <li>
+          <a href="{{ .URL }}" class="block p-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors font-medium">
+            {{ .Name }}
+          </a>
+        </li>
+        {{ end }}
+        {{ range .Site.Menus.ex }}
+        <li>
+          <a href="{{ .URL }}" class="flex items-center gap-3 p-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors font-medium">
+            {{ .Name }}
+          </a>
+        </li>
+        {{ end }}
+      </ul>
     </div>
-    <nav class="flex items-center justify-between flex-wrap p-4">
-        <div class="flex items-center flex-shrink-0 text-2xl mx-6">
-          {{ if .Site.Params.logo }}
-            <a href="{{ .Site.BaseURL }}"><img src="{{ .Site.Params.logo }}" class="w-24 h-auto" /></a>
-          {{ else }}
-            <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+
+    <div class="p-6 border-t border-gray-200 dark:border-neutral-800">
+      <button onclick="toggleDarkMode()" class="flex items-center gap-3 w-full p-3 rounded-lg text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-800 transition-colors">
+        <span class="dark:hidden">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+          </svg>
+        </span>
+        <span class="hidden dark:block">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+        </span>
+        <span class="font-medium">Theme</span>
+      </button>
+    </div>
+  </div>
+  <nav class="flex items-center justify-between flex-wrap p-4">
+      <div class="flex items-center shrink-0 text-2xl mx-6 font-semibold tracking-tight">
+        {{ if .Site.Params.logo }}
+        <a href="{{ .Site.BaseURL }}"><img src="{{ .Site.Params.logo }}" class="w-24 h-auto" /></a>
+        {{ else }}
+        <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+        {{ end }}
+      </div>
+      <div class="block lg:hidden z-50 relative">
+        <div id="hamburgerbtn" class="flex cursor-pointer items-center w-12 h-10 py-2 rounded mopen" onclick="toggleNav()">
+          <span class="top bg-black dark:bg-white h-0.5"></span>
+          <span class="middle bg-black dark:bg-white h-0.5"></span>
+          <span class="bottom bg-black dark:bg-white h-0.5"></span>
+        </div>
+      </div>
+      <div class="hidden w-full ml-6 lg:grow lg:flex lg:items-center lg:w-auto" id="mobileMenu">
+        <div class="text-lg lg:grow">
+        </div>
+        <div class="text-lg mt-3 lg:m-0 flex gap-8 items-center">
+          {{ range .Site.Menus.main }}
+          <a href="{{ .URL }}" class="block mt-4 lg:inline-block lg:mt-0 hover:text-gray-500 duration-200 font-medium">
+            {{ .Name }}
+          </a>
           {{ end }}
+          <button onclick="toggleDarkMode()" class="cursor-pointer focus:outline-none p-1 hover:text-gray-500 transition-colors">
+            <svg id="dark-icon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M6 .278a.77.77 0 0 1 .08.858 7.2 7.2 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277q.792-.001 1.533-.16a.79.79 0 0 1 .81.316.73.73 0 0 1-.031.893A8.35 8.35 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.75.75 0 0 1 6 .278"/>
+            </svg>
+            <svg id="light-icon" xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 hidden" fill="currentColor" viewBox="0 0 16 16">
+              <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"/>
+            </svg>
+          </button>
         </div>
-        <div class="pr-4 block lg:hidden">
-            <div id="hamburgerbtn" class="flex cursor-pointer items-center w-14 h-10 py-2 rounded mopen">
-                <span class="top bg-black dark:bg-white"></span>
-                <span class="middle bg-black dark:bg-white"></span>
-                <span class="bottom bg-black dark:bg-white"></span>
-            </div>
-        </div>
-        <div class="hidden w-full ml-6 block flex-grow lg:flex lg:flex-row lg:items-center lg:w-auto" id="mobileMenu">
-            <div class="text-lg lg:flex-grow">
-            </div>
-            <div class="text-lg mt-3 lg:m-0">
-                {{ range .Site.Menus.main }}
-                <a href="{{ .URL }}" class="block mt-4 lg:inline-block lg:mt-0 hover:text-gray-500 duration-200 mr-8">
-                    {{ .Name }}
-                </a>
-                {{ end }}
-                <button onclick="toggleDarkMode()" class="focus:outline-none mr-5"><i class="icon-moon" id="icon"></i></button>
-            </div>
-        </div>
-    </nav>
+      </div>
+  </nav>
 </header>
+{{ $mainJs := resources.Get "js/main.js" }}
+<script src="{{ $mainJs.Permalink }}"></script>

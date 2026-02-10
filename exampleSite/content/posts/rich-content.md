@@ -1,5 +1,5 @@
 ---
-author: "Hugo Authors"
+authors: ["Hugo Authors"]
 title: "Rich Content"
 date: "2019-03-10"
 description: "A brief description of Hugo Shortcodes"
@@ -13,7 +13,7 @@ Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-manageme
 <!--more-->
 ---
 
-## YouTube Privacy Enhanced Shortcode
+## YouTube Shortcode
 
 {{< youtube ZJthWmvUzzc >}}
 
@@ -21,14 +21,14 @@ Hugo ships with several [Built-in Shortcodes](https://gohugo.io/content-manageme
 
 ---
 
-## Twitter Simple Shortcode
+## X Shortcode
 
-{{< twitter_simple 1085870671291310081 >}}
+{{< x user="DesignReviewed" id="1085870671291310081" >}}
 
 <br>
 
 ---
 
-## Vimeo Simple Shortcode
+## Vimeo Shortcode
 
-{{< vimeo_simple 48912912 >}}
+{{< vimeo 48912912 >}}

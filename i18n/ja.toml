@@ -5,4 +5,28 @@ other = "文字"
 other = "分"
 
 [posts]
-other = "他の作品"
+other = "小説一覧"
+
+[others]
+other = "他の小説"
+
+[theme]
+other = "背景色"
+
+[font]
+other = "書体"
+
+[link-copy]
+other = "リンクをコピーしました"
+
+[search]
+other = "タグを検索..."
+
+[sort_name]
+other = "名前順"
+
+[sort_count]
+other = "件数順"
+
+[no_results]
+other = "タグが見つかりませんでした"
