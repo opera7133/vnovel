@@ -80,7 +80,7 @@ hugo server
 ### サイトをビルド
 
 ```bash
-$ hugo
+hugo
 ```
 
 ## 貢献

@@ -25,14 +25,14 @@ The demo can be seen here: https://vnovel.pages.dev
 Inside the folder of your Hugo site run:
 
 ```bash
-$ git clone https://github.com/opera7133/vnovel themes/vnovel
+git clone https://github.com/opera7133/vnovel themes/vnovel
 ```
 
 Updating theme:
 
 ```bash
-$ cd themes/vnovel
-$ git pull
+cd themes/vnovel
+git pull
 ```
 
 ### Method 2
@@ -40,13 +40,13 @@ $ git pull
 Inside the folder of your Hugo site run:
 
 ```bash
-$ git submodule add https://github.com/opera7133/vnovel.git themes/vnovel
+git submodule add https://github.com/opera7133/vnovel.git themes/vnovel
 ```
 
 Updating theme:
 
 ```bash
-$ git submodule update --remote --merge
+git submodule update --remote --merge
 ```
 
 ### Install dependencies
@@ -56,7 +56,7 @@ Copy at least the following files from `themes/vnovel/exampleSite` to the root f
 - package.json
 
 ```bash
-$ npm install
+npm install
 ```
 
 For more information read the official [setup guide](https://gohugo.io/overview/installing/) of Hugo.
@@ -74,7 +74,7 @@ Copy the hugo.toml in the exampleSite to the root of your Hugo site. Change stri
 In order to see your site in action, run Hugo's built-in local server.
 
 ```bash
-$ hugo server
+hugo server
 ```
 
 Now enter `localhost:1313` in the address bar of your browser.
@@ -82,7 +82,7 @@ Now enter `localhost:1313` in the address bar of your browser.
 ### Build your site
 
 ```bash
-$ hugo
+hugo
 ```
 
 ## Contributing
