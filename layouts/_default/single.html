@@ -3,7 +3,7 @@
   <h1 class="text-2xl mt-3 mb-6 pl-6 font-bold dark:text-white">{{.Title}}</h1>
   <div class="bg-white dark:bg-neutral-800 rounded-xl mx-3 mb-16 px-2 dark:text-white">
     <div class="p-8 lg:px-20 pb-28 prose prose-sm max-w-none lg:prose-lg dark:prose-invert">
-      <div class="mb-6">{{.Content}}</div>
+      <div class="mb-6">{{ .Content | replaceRE "\\{([^|]+)\\|([^}]+)\\}" "<ruby>$1<rt>$2</rt></ruby>" | safeHTML }}</div>
 
       {{ with .Params.authors }}
       <div class="mt-8 border-t border-neutral-200 dark:border-neutral-700 pt-8">

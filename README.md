@@ -12,6 +12,7 @@ The demo can be seen here: https://vnovel.pages.dev
 - Support tags
 - Switch Light / Dark
 - Changeable font and background color
+- Ruby
 - Google Analytics
 - Giscus
 - RSS Feeds

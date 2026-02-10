@@ -1,12 +1,12 @@
 <div id="settings-panel" class="p-4 bg-gray-50 dark:bg-neutral-900">
-  <div class="flex flex-col gap-4 sm:flex-row sm:justify-between items-center">
+  <div class="flex flex-col items-start gap-4 sm:flex-row sm:justify-between sm:items-center">
     <!-- Theme Toggle -->
     <div class="flex items-center gap-4">
       <span class="text-sm font-medium text-gray-700 dark:text-gray-300 w-12">Theme</span>
       <div class="flex gap-3">
-        <button id="reader-theme-btn-light" onclick="setReaderTheme('light')" class="w-8 h-8 rounded-full border border-gray-300 bg-white hover:ring-2 ring-cyan-500 transition-all focus:outline-none focus:ring-2" aria-label="Light Reader Theme" title="Light"></button>
-        <button id="reader-theme-btn-sepia" onclick="setReaderTheme('sepia')" class="w-8 h-8 rounded-full border border-orange-200 bg-[#f4ecd8] hover:ring-2 ring-cyan-500 transition-all focus:outline-none focus:ring-2" aria-label="Sepia Reader Theme" title="Sepia"></button>
-        <button id="reader-theme-btn-dark" onclick="setReaderTheme('dark')" class="w-8 h-8 rounded-full border border-gray-600 bg-neutral-800 hover:ring-2 ring-cyan-500 transition-all focus:outline-none focus:ring-2" aria-label="Dark Reader Theme" title="Dark"></button>
+        <button id="reader-theme-btn-light" onclick="setReaderTheme('light')" class="cursor-pointer w-8 h-8 rounded-full border border-gray-300 bg-white hover:ring-2 ring-cyan-500 transition-all focus:outline-none focus:ring-2" aria-label="Light Reader Theme" title="Light"></button>
+        <button id="reader-theme-btn-sepia" onclick="setReaderTheme('sepia')" class="cursor-pointer w-8 h-8 rounded-full border border-orange-200 bg-[#f4ecd8] hover:ring-2 ring-cyan-500 transition-all focus:outline-none focus:ring-2" aria-label="Sepia Reader Theme" title="Sepia"></button>
+        <button id="reader-theme-btn-dark" onclick="setReaderTheme('dark')" class="cursor-pointer w-8 h-8 rounded-full border border-gray-600 bg-neutral-800 hover:ring-2 ring-cyan-500 transition-all focus:outline-none focus:ring-2" aria-label="Dark Reader Theme" title="Dark"></button>
       </div>
     </div>
 
@@ -14,8 +14,8 @@
     <div class="flex items-center gap-4">
       <span class="text-sm font-medium text-gray-700 dark:text-gray-300 w-12 text-right sm:text-left">Font</span>
       <div class="flex gap-2">
-        <button id="reader-font-btn-sans" onclick="setReaderFont('sans')" class="px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 font-sans hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">Gothic</button>
-        <button id="reader-font-btn-serif" onclick="setReaderFont('serif')" class="px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 font-serif hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">Mincho</button>
+        <button id="reader-font-btn-sans" onclick="setReaderFont('sans')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 font-sans hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">Gothic</button>
+        <button id="reader-font-btn-serif" onclick="setReaderFont('serif')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 font-serif hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">Mincho</button>
       </div>
     </div>
   </div>

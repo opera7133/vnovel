@@ -12,7 +12,7 @@
     <div class="px-6 pb-6 container mx-auto max-w-7xl">
       <div class="relative flex flex-col md:flex-row items-start mb-4">
         <!-- Avatar -->
-        <div class="-mt-6 relative w-26 h-26 rounded-full border-4 border-white dark:border-neutral-800 overflow-hidden bg-white dark:bg-neutral-800">
+        <div class="shrink-0 -mt-6 relative w-26 h-26 rounded-full border-4 border-white dark:border-neutral-800 overflow-hidden bg-white dark:bg-neutral-800">
           {{ if .Params.avatar }}
           <img src="{{ .Params.avatar | relURL }}" alt="{{ .Title }}" class="w-full h-full object-cover">
           {{ else }}
@@ -51,7 +51,7 @@
           </div>
 
           <div class="prose dark:prose-invert max-w-none text-neutral-600 dark:text-neutral-300">
-            {{ .Content }}
+            {{ .Content | replaceRE "\\{([^|]+)\\|([^}]+)\\}" "<ruby>$1<rt>$2</rt></ruby>" | safeHTML }}
           </div>
         </div>
       </div>
