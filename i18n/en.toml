@@ -16,7 +16,7 @@ other = "Theme"
 [font]
 other = "Font"
 
-[link-copy]
+[link_copy]
 other = "Link copied!"
 
 [search]
@@ -30,3 +30,6 @@ other = "Count"
 
 [no_results]
 other = "No tags found."
+
+[toggle_theme]
+other = "Toggle theme"

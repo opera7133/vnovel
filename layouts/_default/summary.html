@@ -10,7 +10,7 @@
     <a href="{{ .Permalink }}">
       <h1 class="text-xl mb-1 font-semibold">{{ .Title }}</h1>
     </a>
-    <div class="flex items-center mb-1 text-xs text-neutral-500">
+    <div class="flex items-center mb-1 text-sm text-neutral-500">
       {{ with .Params.authors }}
       {{ range . }}
       {{ $authorName := . }}
@@ -26,7 +26,7 @@
       {{ end }}
       {{ end }}
     </div>
-    <div id="tags" class="flex gap-2 mb-1">
+    <div id="tags" class="flex gap-2 my-1.5">
       {{ $r18tags := slice "r18" "R18" "r-18" "R-18" }}
       {{ $r15tags := slice "r15" "R15" "r-15" "R-15" }}
       {{ $matchedR18 := intersect .Params.tags $r18tags }}
@@ -55,8 +55,6 @@
       {{ end }}
     </div>
     <p class="mb-1 text-sm text-neutral-500 dark:text-neutral-300">{{ substr .Description 0 52 | plainify }}...</p>
-    <p class="text-xs opacity-40">{{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content)
-        220.0) }}{{ i18n "minutes" }}
-    </p>
+    <p class="text-xs text-neutral-400">{{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content) 220.0) }}{{ i18n "minutes" }}</p>
   </div>
 </article>

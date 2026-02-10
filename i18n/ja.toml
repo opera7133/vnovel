@@ -16,7 +16,7 @@ other = "背景色"
 [font]
 other = "書体"
 
-[link-copy]
+[link_copy]
 other = "リンクをコピーしました"
 
 [search]
@@ -30,3 +30,6 @@ other = "件数順"
 
 [no_results]
 other = "タグが見つかりませんでした"
+
+[toggle_theme]
+other = "テーマを切り替え"
