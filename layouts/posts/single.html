@@ -41,8 +41,9 @@
       {{ end }}
       <div>
         <h1 class="title text-2xl my-3 font-bold">{{ .Title }}</h1>
-        <p class="mb-3 text-xs opacity-70">{{ .Content | countwords }} {{ i18n "words" }}（{{ if eq .Site.Language.Lang "ja" }}読了目安: {{ end }}{{ math.Round (div (countwords .Content)
-            220.0) }}{{ i18n "minutes" }}）
+        <p class="mb-3 text-xs opacity-70">
+          {{ .Content | countwords }} {{ i18n "words" }}（{{ if eq .Site.Language.Lang "ja" }}読了目安: {{ end }}
+          {{ math.Round (div (countwords .Content) 220.0) }}{{ i18n "minutes" }}）
         </p>
         <p class="mb-2 text-sm opacity-80">{{ replaceRE "(https?://[a-zA-Z0-9\\-._~:/?#\\[\\]@!\\$&'()*\\+,;%=]+)" "<a href=\"$1\" class=\"text-cyan-600 opacity-100 hover:text-cyan-700 focus:text-cyan-700\">$1</a>" .Description | safeHTML }}</p>
         <div id="tags" class="flex gap-2 mb-2">
