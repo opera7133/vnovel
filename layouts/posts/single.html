@@ -31,7 +31,7 @@
 {{ end }}
 
 {{ define "main" }}
-<main class="container mx-auto max-w-7xl flex my-4">
+<main class="container mx-auto max-w-7xl flex flex-col-reverse lg:flex-row my-4">
   <div class="w-full lg:w-3/4 bg-white dark:bg-neutral-800 rounded-xl mx-2 dark:text-white">
     <div class="lg:flex p-7">
       {{ if .Params.image }}
@@ -99,11 +99,11 @@
       </div>
     </div>
   </div>
-  <div class="mt-8 ml-5 lg:w-1/4 lg:block hidden">
+  <div class="mt-8 lg:ml-5 lg:w-1/4 block">
     {{ with .Params.authors }}
     <div class="px-4 dark:text-white font-bold mb-7">
       {{ range . }}
-      <a href="{{ "authors" | absURL }}/{{ . | urlize }}" class="hover:underline lg:flex mb-3">
+      <a href="{{ "authors" | absURL }}/{{ . | urlize }}" class="hover:underline flex mb-3">
         <div>
           {{ if $.Params.avatar }}
           <img src="{{ $.Params.avatar | relURL }}" class="w-11 rounded-full" />
