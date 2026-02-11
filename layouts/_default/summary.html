@@ -54,7 +54,13 @@
       {{ end }}
       {{ end }}
     </div>
-    <p class="mb-1 text-sm text-neutral-500 dark:text-neutral-300">{{ substr .Description 0 52 | plainify }}...</p>
+    <p class="mb-1 text-sm text-neutral-500 dark:text-neutral-300">
+      {{ if .Description }}
+        {{ .Description | plainify | truncate 52 }}
+      {{ else }}
+        {{ .Summary | plainify | truncate 52 }}
+      {{ end }}
+    </p>
     <p class="text-xs text-neutral-500 dark:text-neutral-300">{{ .Content | countwords }} {{ i18n "words" }} ・ {{ math.Round (div (countwords .Content) 220.0) }}{{ i18n "minutes" }}</p>
   </div>
 </article>
