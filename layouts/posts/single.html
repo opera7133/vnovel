@@ -1,7 +1,7 @@
 {{ define "meta_tags" }}
 
 <meta property="og:site_name" content="{{ .Site.Title }}" />
-<meta property="og:title" content="{{ .Site.Title }} | {{ .Site.Title }}" />
+<meta property="og:title" content="{{ .Title }} - {{ .Site.Title }}" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="{{ .Permalink }}" />
 <meta property="og:locale" content="ja_JP" />
@@ -32,7 +32,7 @@
 
 {{ define "main" }}
 <main class="container mx-auto max-w-7xl flex flex-col-reverse lg:flex-row my-4">
-  <div class="w-full lg:w-3/4 bg-white dark:bg-neutral-800 rounded-xl mx-2 dark:text-white">
+  <article class="w-full lg:w-3/4 bg-white dark:bg-neutral-800 rounded-xl mx-2 dark:text-white">
     <div class="lg:flex p-7">
       {{ if .Params.image }}
       <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
@@ -98,7 +98,7 @@
         {{ partial "comments.html" . }}
       </div>
     </div>
-  </div>
+  </article>
   <div class="mt-8 lg:ml-5 lg:w-1/4 block">
     {{ with .Params.authors }}
     <div class="px-4 dark:text-white font-bold mb-7">
@@ -188,7 +188,6 @@
         {{- end }}
       {{ end }}
     </div>
-  </div>
   </div>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
