@@ -77,7 +77,7 @@
       </div>
     </div>
     <div class="border-y border-neutral-200 dark:border-neutral-800">
-      <div class="block my-10" id="content-bg">
+      <div class="block py-10" id="content-bg">
         <div class="mx-auto max-w-2xl">
           <div class="prose prose-sm lg:prose-base max-w-none dark:prose-invert py-3 px-5" id="article-content">
             {{ .Content | replaceRE "\\[newpage\\]" "<span class=\"newpage-marker\"></span>" | replaceRE "\\{([^|]+)\\|([^}]+)\\}" "<ruby>$1<rt>$2</rt></ruby>" | safeHTML }}
