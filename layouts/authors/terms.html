@@ -7,7 +7,7 @@
       <a href="/authors/{{ $name | urlize }}" class="group">
         <div class="p-4 bg-white dark:bg-neutral-800 rounded-xl hover:bg-gray-50 dark:hover:bg-neutral-700 transition-all duration-200 flex items-center shadow-sm border border-neutral-100 dark:border-neutral-700">
           <div class="w-12 h-12 rounded-full overflow-hidden mr-4 bg-neutral-200 dark:bg-neutral-700">
-            {{ $authorPage := $.Site.GetPage (printf "/authors/%s" ($name | urlize)) }}
+            {{ $authorPage := $.Site.GetPage (printf "/authors/%s" $name) }}
             {{ if and $authorPage $authorPage.Params.avatar }}
             <img src="{{ $authorPage.Params.avatar | relURL }}" alt="{{ $name }}" class="w-full h-full object-cover">
             {{ else }}

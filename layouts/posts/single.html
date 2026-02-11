@@ -103,12 +103,16 @@
     {{ with .Params.authors }}
     <div class="px-4 dark:text-white font-bold mb-7">
       {{ range . }}
+      {{ $authorName := . }}
+      {{ $authorPage := site.GetPage (printf "/authors/%s" $authorName) }}
       <a href="{{ "authors" | absURL }}/{{ . | urlize }}" class="hover:underline flex mb-3">
         <div>
-          {{ if $.Params.avatar }}
+          {{ if and $authorPage $authorPage.Params.avatar }}
+          <img src="{{ $authorPage.Params.avatar | relURL }}" class="w-11 rounded-full" />
+          {{ else if $.Params.avatar }}
           <img src="{{ $.Params.avatar | relURL }}" class="w-11 rounded-full" />
           {{ else }}
-          <img src="/img/avatar.svg" class="w-11 rounded-full" id="aaa" />
+          <img src="/img/avatar.svg" class="w-11 rounded-full" />
           {{ end }}
         </div>
         <p class="mt-2 ml-2">{{ . }}</p>
