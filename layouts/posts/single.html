@@ -32,7 +32,7 @@
 
 {{ define "main" }}
 <main class="container mx-auto max-w-7xl flex my-4">
-  <div class="w-full lg:w-3/4 bg-white dark:bg-neutral-700 rounded-xl mx-2 dark:text-white">
+  <div class="w-full lg:w-3/4 bg-white dark:bg-neutral-800 rounded-xl mx-2 dark:text-white">
     <div class="lg:flex p-7">
       {{ if .Params.image }}
       <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
@@ -76,7 +76,7 @@
         <time id="date" class="text-xs text-neutral-500 dark:text-neutral-300">{{ .Date.Format "2006/01/02 15:04" }}</time>
       </div>
     </div>
-    <div class="border-y border-neutral-200 dark:border-neutral-800">
+    <div class="border-y border-neutral-200 dark:border-neutral-700">
       <div class="block py-10" id="content-bg">
         <div class="mx-auto max-w-2xl">
           <div class="prose prose-sm lg:prose-base max-w-none dark:prose-invert py-3 px-5" id="article-content">
@@ -296,7 +296,7 @@
           const isActive = i === current;
           btn.className = `my-2 font-semibold cursor-pointer w-10 h-10 rounded-full transition-colors hidden sm:block ${
             isActive
-              ? 'bg-black text-white'
+              ? 'bg-black dark:bg-neutral-700 text-white'
               : 'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-700'
           }`;
           btn.onclick = () => goToPage(i);
