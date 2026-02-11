@@ -32,7 +32,7 @@
 
 {{ define "main" }}
 <main class="container mx-auto max-w-7xl flex flex-col-reverse lg:flex-row my-4">
-  <article class="w-full lg:w-3/4 bg-white dark:bg-neutral-800 rounded-xl mx-2 dark:text-white">
+  <article class="w-full lg:w-3/4 bg-white dark:bg-neutral-800 rounded-xl dark:text-white">
     <div class="lg:flex p-7">
       {{ if .Params.image }}
       <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
@@ -356,3 +356,4 @@
   </script>
 </main>
 {{ end }}
+
