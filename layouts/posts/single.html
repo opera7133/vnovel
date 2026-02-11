@@ -32,8 +32,8 @@
 
 {{ define "main" }}
 <main class="container mx-auto max-w-7xl flex my-4">
-  <div class="w-full lg:w-3/4 px-2 dark:text-white">
-    <div class="bg-white dark:bg-neutral-700 lg:flex p-7 rounded-t-xl">
+  <div class="w-full lg:w-3/4 bg-white dark:bg-neutral-700 rounded-xl mx-2 dark:text-white">
+    <div class="lg:flex p-7">
       {{ if .Params.image }}
       <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
       {{ else }}
@@ -76,35 +76,39 @@
         <time id="date" class="text-xs text-neutral-500 dark:text-neutral-300">{{ .Date.Format "2006/01/02 15:04" }}</time>
       </div>
     </div>
-    {{ partial "settings_panel.html" . }}
-    <div class="bg-white dark:bg-neutral-800 pt-10 border-b border-neutral-200 dark:border-neutral-800" id="content-bg">
-      <div class="mx-auto max-w-2xl">
-        <div class="prose prose-sm lg:prose-base max-w-none dark:prose-invert py-3 px-5" id="article-content">
-          {{ .Content | replaceRE "\\{([^|]+)\\|([^}]+)\\}" "<ruby>$1<rt>$2</rt></ruby>" | safeHTML }}
+    <div class="border-y border-neutral-200 dark:border-neutral-800">
+      <div class="block my-10" id="content-bg">
+        <div class="mx-auto max-w-2xl">
+          <div class="prose prose-sm lg:prose-base max-w-none dark:prose-invert py-3 px-5" id="article-content">
+            {{ .Content | replaceRE "\\[newpage\\]" "<span class=\"newpage-marker\"></span>" | replaceRE "\\{([^|]+)\\|([^}]+)\\}" "<ruby>$1<rt>$2</rt></ruby>" | safeHTML }}
+          </div>
         </div>
       </div>
     </div>
-    <div class="bg-white dark:bg-neutral-800 pt-2 pb-12 px-4" id="sns-bg">
-      <div class="mx-auto max-w-2xl">
+    <div class="bg-white/80 dark:bg-neutral-800/80 px-4 sticky bottom-0" id="sticky-nav">
+      <div id="article-pagination" class="flex justify-center flex-wrap gap-1"></div>
+      <div class="mx-auto max-w-2xl flex flex-row justify-between items-center">
+        {{ partial "settings_panel.html" . }}
         {{ partial "sns_share.html" . }}
       </div>
     </div>
-    <div class="bg-white dark:bg-neutral-700 p-7 rounded-b-xl">
+    <div class="pb-8 dark:bg-neutral-800"></div>
+    <div class="p-7 rounded-b-xl">
       <div class="mx-auto max-w-2xl">
         {{ partial "comments.html" . }}
       </div>
     </div>
   </div>
-  <div class="mt-8 ml-5 lg:w-1/4 font-bold lg:block hidden">
+  <div class="mt-8 ml-5 lg:w-1/4 lg:block hidden">
     {{ with .Params.authors }}
-    <div class="px-4 dark:text-white">
+    <div class="px-4 dark:text-white font-bold mb-7">
       {{ range . }}
       <a href="{{ "authors" | absURL }}/{{ . | urlize }}" class="hover:underline lg:flex mb-3">
         <div>
           {{ if $.Params.avatar }}
           <img src="{{ $.Params.avatar | relURL }}" class="w-11 rounded-full" />
           {{ else }}
-          <img src="/img/avatar.svg" class="w-11 rounded-full" />
+          <img src="/img/avatar.svg" class="w-11 rounded-full" id="aaa" />
           {{ end }}
         </div>
         <p class="mt-2 ml-2">{{ . }}</p>
@@ -112,24 +116,240 @@
       {{ end }}
     </div>
     {{ end }}
-    <div class="mt-7">
-      {{ $filteredPosts := where .Site.RegularPages "Type" "in" site.Params.mainSections }}
-      {{ $relatedPosts := shuffle $filteredPosts | first 5 }}
-      {{- if $relatedPosts }}
-      <div class="rounded-xl panel mb-3 pb-5">
-        <p class="mx-4 text-base text-gray-700 dark:text-white pt-5">{{ i18n "others" }}</p>
-        <div class="mx-4">
-          {{ range $relatedPosts }}
-          <a href="{{ .RelPermalink }}" class="">
-            <div class="px-2 py-1 rounded w-full block dark:hover:bg-neutral-800 hover:bg-gray-200 duration-200">
-              <div class="text-gray-900 dark:text-gray-100 text-base">{{.Title}}</div>
+    <div>
+      {{ $hasAuthorRelated := false }}
+      {{ if .Params.authors }}
+        {{ $author := index .Params.authors 0 }}
+        {{ $authorKey := lower $author }}
+
+        {{ with index site.Taxonomies.authors $authorKey }}
+          {{ $authorPosts := .Pages.ByDate }}
+          {{ $currentPermalink := $.Permalink }}
+          {{ $prev := "" }}
+          {{ $next := "" }}
+
+          {{ range $index, $element := $authorPosts }}
+            {{ if eq .Permalink $currentPermalink }}
+              {{ if gt $index 0 }}
+                {{ $prev = index $authorPosts (sub $index 1) }}
+              {{ end }}
+              {{ if lt $index (sub (len $authorPosts) 1) }}
+                {{ $next = index $authorPosts (add $index 1) }}
+              {{ end }}
+            {{ end }}
+          {{ end }}
+
+          {{ if or $prev $next }}
+            {{ $hasAuthorRelated = true }}
+            <div class="rounded-xl panel mb-3 pb-5 text-sm">
+              <div class="mx-4 text-gray-700 dark:text-white mb-1 flex justify-between">
+                <p class="font-bold">{{ i18n "previous_next" }}</p>
+                <a href="{{ "authors" | absURL }}/{{ $author | urlize }}" class="hover:underline">
+                  {{ i18n "see_all" }}
+                </a>
+              </div>
+              <div class="mx-4 grid grid-cols-1 gap-1 font-bold">
+                {{ with $prev }}
+                <a href="{{ .RelPermalink }}" class="">
+                  <div class="px-2 py-1 rounded w-full block dark:hover:bg-neutral-800 hover:bg-gray-200 duration-200">
+                    <div class="text-gray-900 dark:text-gray-100">{{.Title}}</div>
+                  </div>
+                </a>
+                {{ end }}
+                {{ with $next }}
+                <a href="{{ .RelPermalink }}" class="">
+                  <div class="px-2 py-1 rounded w-full block dark:hover:bg-neutral-800 hover:bg-gray-200 duration-200">
+                    <div class="text-gray-900 dark:text-gray-100">{{.Title}}</div>
+                  </div>
+                </a>
+                {{ end }}
+              </div>
             </div>
+          {{ end }}
+        {{ end }}
+      {{ end }}
+
+      {{ if not $hasAuthorRelated }}
+        {{ $filteredPosts := where .Site.RegularPages "Type" "in" site.Params.mainSections }}
+        {{ $relatedPosts := shuffle $filteredPosts | first 5 }}
+        {{- if $relatedPosts }}
+        <div class="rounded-xl panel mb-3 pb-5 font-bold">
+          <p class="mx-4 text-base text-gray-700 dark:text-white">{{ i18n "others" }}</p>
+          <div class="mx-4">
+            {{ range $relatedPosts }}
+            <a href="{{ .RelPermalink }}" class="">
+              <div class="px-2 py-1 rounded w-full block dark:hover:bg-neutral-800 hover:bg-gray-200 duration-200">
+                <div class="text-gray-900 dark:text-gray-100 text-base">{{.Title}}</div>
+              </div>
+            </a>
             {{- end }}
-          </a>
-          {{- end }}
+          </div>
         </div>
-      </div>
+        {{- end }}
+      {{ end }}
     </div>
   </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const content = document.getElementById('article-content');
+      if (!content) return;
+
+      const markerClass = 'newpage-marker';
+      if (!content.querySelector('.' + markerClass)) return;
+
+      const children = Array.from(content.children);
+      const pages = [];
+      let currentPage = [];
+
+      children.forEach(child => {
+        const hasMarker = child.querySelector('.' + markerClass) || child.classList.contains(markerClass);
+        if (hasMarker) {
+          if (currentPage.length > 0) {
+            pages.push(currentPage);
+            currentPage = [];
+          }
+        } else {
+          currentPage.push(child);
+        }
+      });
+
+      if (currentPage.length > 0) {
+        pages.push(currentPage);
+      }
+
+      if (pages.length <= 1) return;
+
+      content.innerHTML = '';
+
+      const createNavButton = (text, onClick, reverse = false) => {
+        const btn = document.createElement('button');
+        btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${reverse ? "M9 5l7 7-7 7" : "M15 19l-7-7 7-7"}" /></svg><p>${text}</p>`;
+        btn.className = 'w-full py-16 cursor-pointer hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-base transition-colors text-gray-500 dark:text-gray-400 flex flex-col justify-center items-center';
+        btn.onclick = onClick;
+        return btn;
+      };
+
+
+      pages.forEach((pageNodes, index) => {
+        const pageDiv = document.createElement('div');
+        pageDiv.id = `page-${index + 1}`;
+        pageDiv.classList.add('article-page');
+        if (index !== 0) {
+            pageDiv.style.display = 'none';
+        }
+
+        pageNodes.forEach(node => pageDiv.appendChild(node));
+        content.appendChild(pageDiv);
+      });
+
+      // Containers for external nav buttons
+      const contentBg = document.getElementById('content-bg');
+      const topNavContainer = document.createElement('div');
+      topNavContainer.id = 'top-nav-container';
+      contentBg.parentNode.insertBefore(topNavContainer, contentBg);
+
+      const bottomNavContainer = document.createElement('div');
+      bottomNavContainer.id = 'bottom-nav-container';
+      contentBg.parentNode.insertBefore(bottomNavContainer, contentBg.nextSibling);
+
+      const updateNavButtons = (index) => {
+        topNavContainer.innerHTML = '';
+        bottomNavContainer.innerHTML = '';
+
+        // Prev Button (Top)
+        if (index > 0) {
+          topNavContainer.appendChild(createNavButton('{{ i18n "prev_page" | default "前のページ" }}', () => goToPage(index)));
+        }
+
+        // Next Button (Bottom)
+        if (index < pages.length - 1) {
+            bottomNavContainer.appendChild(createNavButton('{{ i18n "next_page" | default "次のページ" }}', () => goToPage(index + 2), true));
+        }
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      let initialPage = parseInt(params.get('page')) || 1;
+
+      const renderPagination = (current, total) => {
+        const container = document.getElementById('article-pagination');
+        if (!container) return;
+        container.innerHTML = '';
+
+        // Prev button
+        const prevBtn = document.createElement('button');
+        prevBtn.className = `my-2 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+          current > 1
+            ? 'cursor-pointer text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-700'
+            : 'opacity-0'
+        }`;
+        prevBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>';
+        prevBtn.onclick = () => {
+          if (current > 1) goToPage(current - 1);
+        };
+        container.appendChild(prevBtn);
+
+        // Page numbers
+        for (let i = 1; i <= total; i++) {
+          const btn = document.createElement('button');
+          btn.textContent = i;
+          const isActive = i === current;
+          btn.className = `my-2 font-semibold cursor-pointer w-10 h-10 rounded-full transition-colors hidden sm:block ${
+            isActive
+              ? 'bg-black text-white'
+              : 'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-700'
+          }`;
+          btn.onclick = () => goToPage(i);
+          container.appendChild(btn);
+        }
+
+        // Mobile current page indicator if numbers are hidden
+        const mobileIndicator = document.createElement('span');
+        mobileIndicator.className = 'sm:hidden flex items-center justify-center h-10 px-2 font-medium text-gray-700 dark:text-gray-300';
+        mobileIndicator.textContent = `${current} / ${total}`;
+        container.appendChild(mobileIndicator);
+
+        // Next button
+        const nextBtn = document.createElement('button');
+        nextBtn.className = `my-2 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
+          current < total
+            ? 'cursor-pointer text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-700'
+            : 'opacity-0'
+        }`;
+        nextBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>';
+        nextBtn.onclick = () => {
+          if (current < total) goToPage(current + 1);
+        };
+        container.appendChild(nextBtn);
+      };
+
+      const goToPage = (n) => {
+        if (n < 1 || n > pages.length) return;
+
+        document.querySelectorAll('.article-page').forEach(el => el.style.display = 'none');
+        const target = document.getElementById(`page-${n}`);
+        if (target) {
+          target.style.display = 'block';
+
+          const url = new URL(window.location);
+          url.searchParams.set('page', n);
+          window.history.pushState({}, '', url);
+
+          renderPagination(n, pages.length);
+          updateNavButtons(n - 1); // index is 0-based
+
+          const bg = document.getElementById('content-bg');
+          if (bg) {
+            const top = bg.offsetTop;
+            window.scrollTo({ top: top - 20, behavior: 'smooth' });
+          }
+        }
+      };
+
+      renderPagination(initialPage, pages.length);
+      if (initialPage !== 1) goToPage(initialPage);
+      updateNavButtons(initialPage - 1);
+    });
+  </script>
 </main>
 {{ end }}

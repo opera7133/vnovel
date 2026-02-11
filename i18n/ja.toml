@@ -56,4 +56,16 @@ other = "大"
 other = "コメント"
 
 [share]
-other = "共有:"
+other = "共有"
+
+[previous_next]
+other = "前後の作品"
+
+[see_all]
+other = "作品一覧"
+
+[next_page]
+other = "次へ"
+
+[prev_page]
+other = "前へ"

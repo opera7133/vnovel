@@ -14,7 +14,7 @@
       {{ with .Params.authors }}
       {{ range . }}
       {{ $authorName := . }}
-      {{ $authorPage := site.GetPage (printf "/authors/%s" ($authorName | urlize)) }}
+      {{ $authorPage := site.GetPage (printf "/authors/%s" $authorName) }}
       <a href="{{ "authors" | absURL }}/{{ $authorName | urlize }}" class="hover:underline flex items-center mr-2 text-neutral-500 dark:text-neutral-300">
         {{ if and $authorPage $authorPage.Params.avatar }}
         <img src="{{ $authorPage.Params.avatar | relURL }}" class="w-4 h-4 rounded-full mr-1 opacity-70" alt="avatar">

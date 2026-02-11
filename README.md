@@ -13,6 +13,7 @@ The demo can be seen here: https://vnovel.pages.dev
 - Switch Light / Dark
 - Changeable font and background color
 - Ruby
+- Page break
 - Google Analytics
 - Giscus
 - RSS Feeds
