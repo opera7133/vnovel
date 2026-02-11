@@ -160,3 +160,38 @@
 .reader-font-sans {
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
 }
+
+/* Reader Font Sizes */
+.reader-font-size-small {
+    font-size: 0.875rem !important;
+}
+.reader-font-size-small p {
+    font-size: 0.875rem !important;
+    line-height: 1.6 !important;
+}
+
+.reader-font-size-medium {
+    font-size: 1rem !important;
+}
+.reader-font-size-medium p {
+    font-size: 1rem !important;
+    line-height: 1.75 !important;
+}
+
+.reader-font-size-large {
+    font-size: 1.25rem !important;
+}
+.reader-font-size-large p {
+    font-size: 1.25rem !important;
+    line-height: 1.8 !important;
+}
+
+/* Scroll to Top Button */
+#scroll-to-top.show {
+    opacity: 1;
+    translate: 0;
+    pointer-events: auto;
+}
+#scroll-to-top {
+    pointer-events: none;
+}

@@ -1,8 +1,8 @@
 <div id="settings-panel" class="p-4 bg-gray-50 dark:bg-neutral-900">
-  <div class="flex flex-col items-start gap-4 sm:flex-row sm:justify-between sm:items-center">
+  <div class="flex flex-col flex-wrap items-start gap-4 sm:flex-row sm:justify-between sm:items-center">
     <!-- Theme Toggle -->
     <div class="flex items-center gap-4">
-      <span class="text-sm font-medium text-gray-700 dark:text-gray-300 w-12">Theme</span>
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300 w-12">{{ i18n "theme" }}</span>
       <div class="flex gap-3">
         <button id="reader-theme-btn-light" onclick="setReaderTheme('light')" class="cursor-pointer w-8 h-8 rounded-full border border-gray-300 bg-white hover:ring-2 ring-cyan-500 transition-all focus:outline-none focus:ring-2" aria-label="Light Reader Theme" title="Light"></button>
         <button id="reader-theme-btn-sepia" onclick="setReaderTheme('sepia')" class="cursor-pointer w-8 h-8 rounded-full border border-orange-200 bg-[#f4ecd8] hover:ring-2 ring-cyan-500 transition-all focus:outline-none focus:ring-2" aria-label="Sepia Reader Theme" title="Sepia"></button>
@@ -12,10 +12,20 @@
 
     <!-- Font Toggle -->
     <div class="flex items-center gap-4">
-      <span class="text-sm font-medium text-gray-700 dark:text-gray-300 w-12 text-right sm:text-left">Font</span>
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300 w-12 text-right sm:text-left">{{ i18n "font" }}</span>
       <div class="flex gap-2">
-        <button id="reader-font-btn-sans" onclick="setReaderFont('sans')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 font-sans hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">Gothic</button>
-        <button id="reader-font-btn-serif" onclick="setReaderFont('serif')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 font-serif hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">Mincho</button>
+        <button id="reader-font-btn-sans" onclick="setReaderFont('sans')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 font-sans hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">{{ i18n "sans_serif" }}</button>
+        <button id="reader-font-btn-serif" onclick="setReaderFont('serif')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 font-serif hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">{{ i18n "serif" }}</button>
+      </div>
+    </div>
+
+    <!-- Font Size Toggle -->
+    <div class="flex items-center gap-4">
+      <span class="text-sm font-medium text-gray-700 dark:text-gray-300 w-12 text-right sm:text-left">{{ i18n "size" }}</span>
+      <div class="flex gap-2">
+        <button id="reader-size-btn-small" onclick="setReaderFontSize('small')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">{{ i18n "small" }}</button>
+        <button id="reader-size-btn-medium" onclick="setReaderFontSize('medium')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">{{ i18n "medium" }}</button>
+        <button id="reader-size-btn-large" onclick="setReaderFontSize('large')" class="cursor-pointer px-3 py-1.5 text-sm rounded border border-gray-300 dark:border-neutral-600 bg-white dark:bg-neutral-800 text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-neutral-700 transition-colors focus:outline-none focus:ring-2 ring-cyan-500">{{ i18n "large" }}</button>
       </div>
     </div>
   </div>

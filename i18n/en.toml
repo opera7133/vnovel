@@ -33,3 +33,27 @@ other = "No tags found."
 
 [toggle_theme]
 other = "Toggle theme"
+
+[serif]
+other = "Serif"
+
+[sans_serif]
+other = "Sans-Serif"
+
+[size]
+other = "Size"
+
+[small]
+other = "S"
+
+[medium]
+other = "M"
+
+[large]
+other = "L"
+
+[comments]
+other = "Comments"
+
+[share]
+other = "Share:"

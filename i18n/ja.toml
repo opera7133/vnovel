@@ -33,3 +33,27 @@ other = "タグが見つかりませんでした"
 
 [toggle_theme]
 other = "テーマを切り替え"
+
+[serif]
+other = "明朝"
+
+[sans_serif]
+other = "ゴシック"
+
+[size]
+other = "サイズ"
+
+[small]
+other = "小"
+
+[medium]
+other = "中"
+
+[large]
+other = "大"
+
+[comments]
+other = "コメント"
+
+[share]
+other = "共有:"

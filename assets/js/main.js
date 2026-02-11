@@ -80,6 +80,20 @@ function updateReaderSettingButtons(type, value) {
                 }
             }
         });
+    } else if (type === 'fontSize') {
+        const sizes = ['small', 'medium', 'large'];
+        sizes.forEach(s => {
+            const btn = document.getElementById(`reader-size-btn-${s}`);
+            if (btn) {
+                if (s === value) {
+                    btn.classList.add('bg-cyan-500', 'text-white', 'border-cyan-500');
+                    btn.classList.remove('bg-white', 'dark:bg-neutral-800', 'text-gray-700', 'dark:text-gray-200');
+                } else {
+                    btn.classList.remove('bg-cyan-500', 'text-white', 'border-cyan-500');
+                    btn.classList.add('bg-white', 'dark:bg-neutral-800', 'text-gray-700', 'dark:text-gray-200');
+                }
+            }
+        });
     }
 }
 
@@ -123,6 +137,18 @@ function setReaderFont(font) {
     updateReaderSettingButtons('font', font);
 }
 
+// Reader Font Size (Small/Medium/Large) - Applied ONLY to post content
+function setReaderFontSize(size) {
+    const articleContent = document.getElementById('article-content');
+    if (!articleContent) return;
+
+    articleContent.classList.remove('reader-font-size-small', 'reader-font-size-medium', 'reader-font-size-large');
+    articleContent.classList.add(`reader-font-size-${size}`);
+
+    localStorage.readerFontSize = size;
+    updateReaderSettingButtons('fontSize', size);
+}
+
 function updateGiscusTheme() {
     const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
     const iframe = document.querySelector('iframe.giscus-frame');
@@ -143,4 +169,29 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Initialize Reader Font
     const savedReaderFont = localStorage.readerFont || 'sans';
     setReaderFont(savedReaderFont);
+
+    // 4. Initialize Reader Font Size
+    const savedReaderFontSize = localStorage.readerFontSize || 'medium';
+    setReaderFontSize(savedReaderFontSize);
+});
+
+// Scroll to Top Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const scrollBtn = document.getElementById('scroll-to-top');
+    if (scrollBtn) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+
+        scrollBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
 });
