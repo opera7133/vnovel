@@ -43,16 +43,16 @@
       </button>
     </div>
   </div>
-  <nav class="flex items-center justify-between flex-wrap p-4">
-      <div class="flex items-center shrink-0 text-2xl mx-2 font-semibold tracking-tight">
+  <nav class="flex flex-wrap items-center justify-between p-4">
+      <div class="flex items-center shrink-0 text-2xl md:mx-2 font-semibold tracking-tight">
         {{ if .Site.Params.logo }}
         <a href="{{ .Site.BaseURL }}"><img src="{{ .Site.Params.logo }}" class="w-24 h-auto" /></a>
         {{ else }}
-        <a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+        <a href="{{ .Site.BaseURL }}" class="break-all wrap-break-word min-w-0">{{ .Site.Title }}</a>
         {{ end }}
       </div>
-      <div class="block lg:hidden z-50 relative">
-        <div id="hamburgerbtn" class="flex cursor-pointer items-center w-12 h-10 py-2 rounded mopen" onclick="toggleNav()">
+      <div class="absolute p-2 top-0 right-0 lg:hidden z-50 bg-white/70 dark:bg-neutral-800/70 rounded-bl-xl">
+        <div id="hamburgerbtn" class="flex cursor-pointer items-center w-10 h-10 py-2 rounded spmenu" onclick="toggleNav()">
           <span class="top bg-black dark:bg-white h-0.5"></span>
           <span class="middle bg-black dark:bg-white h-0.5"></span>
           <span class="bottom bg-black dark:bg-white h-0.5"></span>

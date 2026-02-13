@@ -5,7 +5,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Hamburger Menu Styles */
-.mopen {
+.spmenu {
   float: left;
   display: block;
   background: rgba(255, 255, 255, 0);
@@ -13,7 +13,7 @@
   z-index: 1000;
 }
 
-.mopen span {
+.spmenu span {
   transition: all 0.3s;
   transform: rotate(0deg);
   width: 40px;
@@ -22,26 +22,26 @@
   position: absolute;
   left: 50%;
   top: 50%;
-  margin-left: -25px;
+  margin-left: -20px;
 }
 
-.mopen .top {
+.spmenu .top {
   transform: translateY(-14px);
 }
 
-.mopen .bottom {
+.spmenu .bottom {
   transform: translateY(14px);
 }
 
-.mopen.is-open .middle {
+.spmenu.is-open .middle {
   background: rgba(255, 255, 255, 0);
 }
 
-.mopen.is-open .top {
+.spmenu.is-open .top {
   transform: rotate(-45deg) translateY(0px);
 }
 
-.mopen.is-open .bottom {
+.spmenu.is-open .bottom {
   transform: rotate(45deg) translateY(0px);
 }
 
