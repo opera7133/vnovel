@@ -32,73 +32,75 @@
 
 {{ define "main" }}
 <main class="container mx-auto max-w-7xl flex flex-col-reverse lg:flex-row my-4">
-  <article class="w-full lg:w-3/4 bg-white dark:bg-neutral-800 rounded-xl dark:text-white">
-    <div class="lg:flex p-7">
-      {{ if .Params.image }}
-      <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
-      {{ else }}
-      <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ "/img/novel.svg" | relURL }}" alt="thumbnail"/>
-      {{ end }}
-      <div>
-        <h1 class="title text-2xl my-3 font-bold">{{ .Title }}</h1>
-        <p class="mb-3 text-xs opacity-70">
-          {{ .Content | countwords }} {{ i18n "words" }}
-          ({{ if eq .Site.Language.Lang "ja" }}読了目安: {{ end }}{{ math.Round (div (countwords .Content) 220.0) }}{{ i18n "minutes" }})
-        </p>
-        <p class="mb-2 text-sm opacity-80">{{ replaceRE "(https?://[a-zA-Z0-9\\-._~:/?#\\[\\]@!\\$&'()*\\+,;%=]+)" "<a href=\"$1\" class=\"text-cyan-600 opacity-100 hover:text-cyan-700 focus:text-cyan-700\">$1</a>" .Description | safeHTML }}</p>
-        <div id="tags" class="flex gap-2 mb-2">
-          {{ $r18tags := slice "r18" "R18" "r-18" "R-18" }}
-          {{ $r15tags := slice "r15" "R15" "r-15" "R-15" }}
-          {{ $matchedR18 := intersect .Params.tags $r18tags }}
-          {{ $matchedR15 := intersect .Params.tags $r15tags }}
+  <div class="w-full lg:w-3/4 bg-white dark:bg-neutral-800 rounded-xl dark:text-white">
+    <article id="novel-main">
+      <div class="lg:flex p-7 bg-white dark:bg-neutral-800 dark:text-white">
+        {{ if .Params.image }}
+        <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ .Params.image | relURL }}" alt="thumbnail"/>
+        {{ else }}
+        <img class="rounded mx-auto w-auto h-48 lg:ml-0 lg:mr-8" src="{{ "/img/novel.svg" | relURL }}" alt="thumbnail"/>
+        {{ end }}
+        <div>
+          <h1 class="title text-2xl my-3 font-bold">{{ .Title }}</h1>
+          <p class="mb-3 text-xs opacity-70">
+            {{ .Content | countwords }} {{ i18n "words" }}
+            ({{ if eq .Site.Language.Lang "ja" }}読了目安: {{ end }}{{ math.Round (div (countwords .Content) 220.0) }}{{ i18n "minutes" }})
+          </p>
+          <p class="mb-2 text-sm opacity-80">{{ replaceRE "(https?://[a-zA-Z0-9\\-._~:/?#\\[\\]@!\\$&'()*\\+,;%=]+)" "<a href=\"$1\" class=\"text-cyan-600 opacity-100 hover:text-cyan-700 focus:text-cyan-700\">$1</a>" .Description | safeHTML }}</p>
+          <div id="tags" class="flex gap-2 mb-2">
+            {{ $r18tags := slice "r18" "R18" "r-18" "R-18" }}
+            {{ $r15tags := slice "r15" "R15" "r-15" "R-15" }}
+            {{ $matchedR18 := intersect .Params.tags $r18tags }}
+            {{ $matchedR15 := intersect .Params.tags $r15tags }}
 
-          {{ if gt (len $matchedR18) 0 }}
-          {{ $tagName := index $matchedR18 0 }}
-          <span class="text-sm inline-flex leading-4 content-center justify-center text-rose-600 font-semibold">
-            <a href="{{ "tags" | absURL}}/{{ $tagName | urlize }}">R-18</a>
-          </span>
-          {{ else if gt (len $matchedR15) 0 }}
-          {{ $tagName := index $matchedR15 0 }}
-          <span class="text-sm inline-flex leading-4 content-center justify-center text-orange-500 font-semibold">
-            <a href="{{ "tags" | absURL}}/{{ $tagName | urlize }}">R-15</a>
-          </span>
-          {{ end }}
-          {{ with .Params.tags }}
-          {{ range . }}
-          {{ if and (not (in $r18tags .)) (not (in $r15tags .)) }}
-          <span class="text-sm inline-flex leading-4 content-center justify-center text-cyan-600">
-            <a href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a>
-          </span>
-          {{ end }}
-          {{ end }}
-          {{ end }}
+            {{ if gt (len $matchedR18) 0 }}
+            {{ $tagName := index $matchedR18 0 }}
+            <span class="text-sm inline-flex leading-4 content-center justify-center text-rose-600 font-semibold">
+              <a href="{{ "tags" | absURL}}/{{ $tagName | urlize }}">R-18</a>
+            </span>
+            {{ else if gt (len $matchedR15) 0 }}
+            {{ $tagName := index $matchedR15 0 }}
+            <span class="text-sm inline-flex leading-4 content-center justify-center text-orange-500 font-semibold">
+              <a href="{{ "tags" | absURL}}/{{ $tagName | urlize }}">R-15</a>
+            </span>
+            {{ end }}
+            {{ with .Params.tags }}
+            {{ range . }}
+            {{ if and (not (in $r18tags .)) (not (in $r15tags .)) }}
+            <span class="text-sm inline-flex leading-4 content-center justify-center text-cyan-600">
+              <a href="{{ "tags" | absURL}}/{{ . | urlize }}">#{{ . }}</a>
+            </span>
+            {{ end }}
+            {{ end }}
+            {{ end }}
+          </div>
+          <time id="date" class="text-xs text-neutral-500 dark:text-neutral-300">{{ .Date.Format "2006/01/02 15:04" }}</time>
         </div>
-        <time id="date" class="text-xs text-neutral-500 dark:text-neutral-300">{{ .Date.Format "2006/01/02 15:04" }}</time>
       </div>
-    </div>
-    <div class="border-y border-neutral-200 dark:border-neutral-700">
-      <div class="block py-10" id="content-bg">
-        <div class="mx-auto max-w-2xl">
-          <div class="prose prose-sm lg:prose-base max-w-none dark:prose-invert py-3 px-5" id="article-content">
-            {{ .Content | replaceRE "\\[newpage\\]" "<span class=\"newpage-marker\"></span>" | replaceRE "\\{([^|]+)\\|([^}]+)\\}" "<ruby>$1<rt>$2</rt></ruby>" | safeHTML }}
+      <div class="border-y border-neutral-200 reader-dark:border-neutral-700">
+        <div class="block py-10" id="content-bg">
+          <div class="mx-auto max-w-2xl">
+            <div class="prose prose-sm lg:prose-base max-w-none reader-dark:prose-invert py-3 px-5" id="article-content">
+              {{ .Content | replaceRE "\\[newpage\\]" "<span class=\"newpage-marker\"></span>" | replaceRE "\\{([^|]+)\\|([^}]+)\\}" "<ruby>$1<rt>$2</rt></ruby>" | safeHTML }}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="bg-white/80 dark:bg-neutral-800/80 px-4 sticky bottom-0 z-40" id="sticky-nav">
-      <div id="article-pagination" class="flex justify-center flex-wrap gap-1"></div>
-      <div class="mx-auto max-w-2xl flex flex-row justify-between items-center">
-        {{ partial "settings_panel.html" . }}
-        {{ partial "sns_share.html" . }}
+      <div class="bg-white/80 reader-dark:bg-neutral-800/80 px-4 sticky bottom-0 z-40" id="sticky-nav">
+        <div id="article-pagination" class="flex justify-center flex-wrap gap-1"></div>
+        <div class="mx-auto max-w-2xl flex flex-row justify-between items-center">
+          {{ partial "settings_panel.html" . }}
+          {{ partial "sns_share.html" . }}
+        </div>
       </div>
-    </div>
-    <div class="pb-8 dark:bg-neutral-800"></div>
+    </article>
+    <div class="pb-8"></div>
     <div class="p-7 rounded-b-xl">
       <div class="mx-auto max-w-2xl">
         {{ partial "comments.html" . }}
       </div>
     </div>
-  </article>
+  </div>
   <div class="mt-8 lg:ml-5 lg:w-1/4 block">
     {{ with .Params.authors }}
     <div class="px-4 dark:text-white font-bold mb-7">
@@ -228,7 +230,7 @@
       const createNavButton = (text, onClick, reverse = false) => {
         const btn = document.createElement('button');
         btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="${reverse ? "M9 5l7 7-7 7" : "M15 19l-7-7 7-7"}" /></svg><p>${text}</p>`;
-        btn.className = 'w-full py-16 cursor-pointer hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-base transition-colors text-gray-500 dark:text-gray-400 flex flex-col justify-center items-center';
+        btn.className = 'w-full py-16 cursor-pointer bg-transparent hover:bg-gray-100 reader-dark:bg-[#262626] reader-dark:hover:bg-[#404040] text-base transition-colors text-gray-500 reader-dark:text-gray-400 flex flex-col justify-center items-center';
         btn.onclick = onClick;
         return btn;
       };
@@ -283,7 +285,7 @@
         const prevBtn = document.createElement('button');
         prevBtn.className = `my-2 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
           current > 1
-            ? 'cursor-pointer text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-700'
+            ? 'cursor-pointer text-gray-700 hover:bg-gray-100 reader-dark:text-gray-300 reader-dark:hover:bg-neutral-700'
             : 'opacity-0'
         }`;
         prevBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>';
@@ -299,8 +301,8 @@
           const isActive = i === current;
           btn.className = `my-2 font-semibold cursor-pointer w-10 h-10 rounded-full transition-colors hidden sm:block ${
             isActive
-              ? 'bg-black dark:bg-neutral-700 text-white'
-              : 'bg-transparent text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-700'
+              ? 'bg-black text-white reader-dark:bg-neutral-700'
+              : 'bg-transparent text-gray-700 hover:bg-gray-100 reader-dark:text-gray-300 reader-dark:hover:bg-neutral-700'
           }`;
           btn.onclick = () => goToPage(i);
           container.appendChild(btn);
@@ -308,7 +310,7 @@
 
         // Mobile current page indicator if numbers are hidden
         const mobileIndicator = document.createElement('span');
-        mobileIndicator.className = 'my-2 sm:hidden flex items-center justify-center h-10 px-2 font-medium text-gray-700 dark:text-gray-300';
+        mobileIndicator.className = 'my-2 sm:hidden flex items-center justify-center h-10 px-2 font-medium text-gray-700 reader-dark:text-gray-300';
         mobileIndicator.textContent = `${current} / ${total}`;
         container.appendChild(mobileIndicator);
 
@@ -316,7 +318,7 @@
         const nextBtn = document.createElement('button');
         nextBtn.className = `my-2 w-10 h-10 rounded-full flex items-center justify-center transition-colors ${
           current < total
-            ? 'cursor-pointer text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-neutral-700'
+            ? 'cursor-pointer text-gray-700 hover:bg-gray-100 reader-dark:text-gray-300 reader-dark:hover:bg-neutral-700'
             : 'opacity-0'
         }`;
         nextBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>';

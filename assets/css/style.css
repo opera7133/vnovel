@@ -3,6 +3,9 @@
 @source "hugo_stats.json";
 
 @custom-variant dark (&:where(.dark, .dark *));
+@custom-variant reader-light (&:where(.reader-theme-light, .reader-theme-light *));
+@custom-variant reader-sepia (&:where(.reader-theme-sepia, .reader-theme-sepia *));
+@custom-variant reader-dark (&:where(.reader-theme-dark, .reader-theme-dark *));
 
 /* Hamburger Menu Styles */
 .spmenu {
@@ -120,26 +123,6 @@
     background-color: #262626 !important;
     color: #ffffff !important;
     border-color: #404040 !important;
-}
-
-.prose.reader-theme-dark-content {
-    --tw-prose-body: #d1d5db;
-    --tw-prose-headings: #fff;
-    --tw-prose-lead: #aecbfa;
-    --tw-prose-links: #fff;
-    --tw-prose-bold: #fff;
-    --tw-prose-counters: #9ca3af;
-    --tw-prose-bullets: #4b5563;
-    --tw-prose-hr: #374151;
-    --tw-prose-quotes: #f3f4f6;
-    --tw-prose-quote-borders: #374151;
-    --tw-prose-captions: #9ca3af;
-    --tw-prose-code: #fff;
-    --tw-prose-pre-code: #d1d5db;
-    --tw-prose-pre-bg: #1f2937;
-    --tw-prose-th-borders: #4b5563;
-    --tw-prose-td-borders: #374151;
-    color: #d1d5db !important;
 }
 
 .reader-theme-dark #settings-panel {

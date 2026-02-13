@@ -60,9 +60,9 @@ function updateReaderSettingButtons(type, value) {
             const btn = document.getElementById(`reader-theme-btn-${t}`);
             if (btn) {
                 if (t === value) {
-                    btn.classList.add('ring-2', 'ring-cyan-500', 'ring-offset-2', 'dark:ring-offset-neutral-900');
+                    btn.classList.add('ring-2', 'ring-cyan-500', 'ring-offset-2');
                 } else {
-                    btn.classList.remove('ring-2', 'ring-cyan-500', 'ring-offset-2', 'dark:ring-offset-neutral-900');
+                    btn.classList.remove('ring-2', 'ring-cyan-500', 'ring-offset-2');
                 }
             }
         });
@@ -72,11 +72,11 @@ function updateReaderSettingButtons(type, value) {
             const btn = document.getElementById(`reader-font-btn-${f}`);
             if (btn) {
                 if (f === value) {
-                    btn.classList.add('bg-cyan-500', 'text-white', 'border-cyan-500');
-                    btn.classList.remove('bg-white', 'dark:bg-neutral-800', 'text-gray-700', 'dark:text-gray-200');
+                    btn.classList.add('bg-cyan-500', 'reader-dark:bg-cyan-500', 'text-white', 'border-cyan-500');
+                    btn.classList.remove('bg-white', 'text-gray-700');
                 } else {
-                    btn.classList.remove('bg-cyan-500', 'text-white', 'border-cyan-500');
-                    btn.classList.add('bg-white', 'dark:bg-neutral-800', 'text-gray-700', 'dark:text-gray-200');
+                    btn.classList.remove('bg-cyan-500', 'reader-dark:bg-cyan-500', 'text-white', 'border-cyan-500');
+                    btn.classList.add('bg-white', 'text-gray-700');
                 }
             }
         });
@@ -86,11 +86,11 @@ function updateReaderSettingButtons(type, value) {
             const btn = document.getElementById(`reader-size-btn-${s}`);
             if (btn) {
                 if (s === value) {
-                    btn.classList.add('bg-cyan-500', 'text-white', 'border-cyan-500');
-                    btn.classList.remove('bg-white', 'dark:bg-neutral-800', 'text-gray-700', 'dark:text-gray-200');
+                    btn.classList.add('bg-cyan-500', 'reader-dark:bg-cyan-500', 'text-white', 'border-cyan-500');
+                    btn.classList.remove('bg-white', 'text-gray-700');
                 } else {
-                    btn.classList.remove('bg-cyan-500', 'text-white', 'border-cyan-500');
-                    btn.classList.add('bg-white', 'dark:bg-neutral-800', 'text-gray-700', 'dark:text-gray-200');
+                    btn.classList.remove('bg-cyan-500', 'reader-dark:bg-cyan-500', 'text-white', 'border-cyan-500');
+                    btn.classList.add('bg-white', 'text-gray-700');
                 }
             }
         });
@@ -111,6 +111,13 @@ function setReaderTheme(theme) {
     if (snsBg) {
         snsBg.classList.remove('reader-theme-light', 'reader-theme-sepia', 'reader-theme-dark');
         snsBg.classList.add(`reader-theme-${theme}`);
+    }
+
+    // Apply to Article Main Content
+    const novelMain = document.getElementById('novel-main');
+    if (novelMain) {
+        novelMain.classList.remove('reader-theme-light', 'reader-theme-sepia', 'reader-theme-dark');
+        novelMain.classList.add(`reader-theme-${theme}`);
     }
 
     // Apply to Prose content for text colors
