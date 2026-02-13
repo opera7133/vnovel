@@ -95,20 +95,6 @@
     border-color: #e5e7eb !important;
 }
 
-.prose.reader-theme-light-content {
-    --tw-prose-body: #374151;
-    --tw-prose-headings: #111827;
-    --tw-prose-links: #111827;
-    --tw-prose-bold: #111827;
-    --tw-prose-counters: #6b7280;
-    --tw-prose-bullets: #d1d5db;
-    --tw-prose-hr: #e5e7eb;
-    --tw-prose-quotes: #111827;
-    --tw-prose-quote-borders: #e5e7eb;
-    --tw-prose-captions: #6b7280;
-    color: #374151 !important;
-}
-
 .reader-theme-light #settings-panel {
     background-color: #f9fafb !important;
     border-color: #e5e7eb !important;
