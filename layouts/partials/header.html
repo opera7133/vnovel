@@ -1,9 +1,9 @@
 <header class="bg-white dark:bg-neutral-800 dark:text-white">
   <!-- Mobile Menu Backdrop -->
-  <div id="menu-backdrop" class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleNav()"></div>
+  <div id="menu-backdrop" class="fixed inset-0 bg-black/50 z-50 opacity-0 pointer-events-none transition-opacity duration-300" onclick="toggleNav()"></div>
 
   <!-- Mobile Menu Drawer -->
-  <div id="menu-drawer" class="fixed inset-y-0 right-0 z-50 w-64 bg-white dark:bg-neutral-900 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+  <div id="menu-drawer" class="fixed inset-y-0 right-0 z-60 w-64 bg-white dark:bg-neutral-900 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
     <div class="p-6 grow overflow-y-auto">
       <div class="flex justify-between items-center mb-8">
         <span class="text-xl font-bold dark:text-white">Menu</span>
@@ -51,7 +51,7 @@
         <a href="{{ .Site.BaseURL }}" class="break-all wrap-break-word min-w-0">{{ .Site.Title }}</a>
         {{ end }}
       </div>
-      <div class="absolute p-2 top-0 right-0 lg:hidden z-50 bg-white/70 dark:bg-neutral-800/70 rounded-bl-xl">
+      <div class="absolute p-2 top-0 right-0 lg:hidden z-60 bg-white/70 dark:bg-neutral-800/70 rounded-bl-xl">
         <div id="hamburgerbtn" class="flex cursor-pointer items-center w-10 h-10 py-2 rounded spmenu" onclick="toggleNav()">
           <span class="top bg-black dark:bg-white h-0.5"></span>
           <span class="middle bg-black dark:bg-white h-0.5"></span>
