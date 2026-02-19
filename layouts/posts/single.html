@@ -81,7 +81,7 @@
         <div class="block py-10" id="content-bg">
           <div class="mx-auto max-w-2xl">
             <div class="prose prose-sm lg:prose-base max-w-none reader-dark:prose-invert py-3 px-5" id="article-content">
-              {{ .Content | replaceRE "\\[newpage\\]" "<span class=\"newpage-marker\"></span>" | replaceRE "\\{([^|]+)\\|([^}]+)\\}" "<ruby>$1<rt>$2</rt></ruby>" | safeHTML }}
+              {{ .Content | replaceRE "\\[newpage\\]" "<span class=\"newpage-marker\"></span>" | safeHTML }}
             </div>
           </div>
         </div>
@@ -199,6 +199,69 @@
     document.addEventListener('DOMContentLoaded', () => {
       const content = document.getElementById('article-content');
       if (!content) return;
+
+      const applyRuby = (root) => {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+        const nodes = [];
+        while (walker.nextNode()) {
+          const node = walker.currentNode;
+          const parentName = node.parentNode.nodeName.toLowerCase();
+          if (!['code', 'pre', 'textarea', 'script', 'style', 'kbd', 'samp', 'var'].includes(parentName)) {
+            nodes.push(node);
+          }
+        }
+
+        nodes.forEach(node => {
+          const text = node.nodeValue;
+          const regex = /(\\)?\{([^}\n]*\|[^}\n]*)\}/g;
+
+          if (!regex.test(text)) return;
+          regex.lastIndex = 0;
+
+          const fragment = document.createDocumentFragment();
+          let lastIndex = 0;
+          let match;
+
+          while ((match = regex.exec(text)) !== null) {
+            fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+            console.log(match)
+            const isEscaped = match[1] === '\\';
+            const content = match[2];
+
+            if (isEscaped || content.includes("\\|") || content.startsWith("|")) {
+              fragment.appendChild(document.createTextNode(`{${content.replace("\\|","|")}}`));
+            } else {
+              const parts = content.split('|');
+              const base = parts[0];
+              const readings = parts.slice(1);
+
+              const ruby = document.createElement('ruby');
+
+              if (readings.length > 1 && base.length === readings.length) {
+                for (let i = 0; i < base.length; i++) {
+                  ruby.appendChild(document.createTextNode(base[i]));
+                  const rt = document.createElement('rt');
+                  rt.textContent = readings[i];
+                  ruby.appendChild(rt);
+                }
+              } else {
+                ruby.appendChild(document.createTextNode(base));
+                const rt = document.createElement('rt');
+                rt.textContent = readings.join('');
+                ruby.appendChild(rt);
+              }
+              fragment.appendChild(ruby);
+            }
+
+            lastIndex = regex.lastIndex;
+          }
+
+          fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+          node.parentNode.replaceChild(fragment, node);
+        });
+      };
+
+      applyRuby(content);
 
       const markerClass = 'newpage-marker';
       if (!content.querySelector('.' + markerClass)) return;
